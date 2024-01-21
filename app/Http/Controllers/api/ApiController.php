@@ -10,6 +10,7 @@ class ApiController extends Controller
 {
     public function index(Request $request) 
     {
+        
         return response()->json([
             'status' => 200,
             'message' => 'success',
