@@ -29,6 +29,7 @@ class PermissionModel extends Model
         'definer',
         'page',
         'permission',
+        'parent_id',
         'created_at',
         'updated_at'
     ];

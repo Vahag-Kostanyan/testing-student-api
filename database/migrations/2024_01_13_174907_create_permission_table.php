@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('definer')->unique()->nullable(false);
             $table->string('page')->unique()->nullable(false);
             $table->string('permission')->default("0000");
+            $table->bigInteger('parent_id')->default(null)->nullable(true);
             $table->timestamps();
         });
     }
