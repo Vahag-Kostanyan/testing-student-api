@@ -33,8 +33,6 @@ class User extends Authenticatable
     protected $fillable = [
         'username',
         'status',
-        'email_verified_code',
-        'email_verified_at',
         'role_id',
         'email',
         'password',
@@ -50,6 +48,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verified_code',
+        'email_verified_at',
     ];
 
     /**
@@ -62,7 +62,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function getRole() : HasOne 
+    public function role() : HasOne 
     {
         return $this->hasOne(RoleModel::class,'id','role_id');
     }
