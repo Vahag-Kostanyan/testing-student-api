@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @var string $created_at
  * @var string $updated_at
  */
-class RoleModel extends Model
+class Role extends Model
 {
     use HasFactory;
 
@@ -26,4 +26,10 @@ class RoleModel extends Model
         'created_at',
         'updated_at'
     ];
+
+    public function rolePermission(){
+        return $this->hasMany(RolePermission::class, 'role_id', 'id');
+    }
+
+
 }

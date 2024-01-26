@@ -22,7 +22,7 @@ Route::post('/login', [AuthController::class, 'login'])
         ->name('login');
 
 Route::get('/getme', [AuthController::class, 'getMe'])
-        ->middleware('auth:sanctum')
+        ->middleware(['auth:sanctum', 'action.permission'])
         ->name('login');
 
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])

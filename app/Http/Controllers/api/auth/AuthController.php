@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api\auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\api\Auth\CreateUserRequest;
 use App\Http\Requests\api\Auth\LoginRequest;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,8 +11,15 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AuthController extends Controller
 {
-    public function createUser(){
 
+    /**
+     * @param CreateUserRequest $request
+     * @throws HttpResponseException
+     * @return Response
+     */
+    public function createUser(CreateUserRequest $request) : Response
+    {
+        return $request->registore();
     }
 
     /**

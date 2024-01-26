@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @var string $created_at
  * @var string $updated_at
  */
-class RolePermissionModel extends Model
+class RolePermission extends Model
 {
     use HasFactory;
 
@@ -34,16 +34,16 @@ class RolePermissionModel extends Model
     /**
      * @return HasOne
      */
-    public function getRole(): HasOne
+    public function role(): HasOne
     {
-        return $this->hasOne(RoleModel::class,'id','role_id');
+        return $this->hasOne(Role::class,'id','role_id');
     }
 
     /**
      * @return HasOne
      */
-    public function getPermission(): HasOne
+    public function permission(): HasOne
     {
-        return $this->hasOne(PermissionModel::class,'id','permission_id');
+        return $this->hasOne(Permission::class,'id','permission_id');
     }
 }

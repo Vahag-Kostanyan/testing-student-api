@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @var string $created_at
  * @var string $updated_at
  */
-class PermissionModel extends Model
+class Permission extends Model
 {
     use HasFactory;
 
