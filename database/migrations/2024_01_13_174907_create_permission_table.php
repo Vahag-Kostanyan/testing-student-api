@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('permission', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable(false);
+            $table->string('definer')->unique()->nullable(false);
+            $table->string('page')->unique()->nullable(false);
+            $table->string('permission')->default("0000");
+            $table->bigInteger('parent_id')->default(null)->nullable(true);
             $table->timestamps();
         });
     }
