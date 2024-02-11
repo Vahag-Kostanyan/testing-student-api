@@ -16,12 +16,12 @@ trait ApiCrudValidationTrate
     protected function validation(string $action, Request $request)
     {
         switch($action){
-            case 'create':
-                $rules = $this->create_validation_rules(); break;
+            case 'store':
+                $rules = $this->store_validation_rules(); break;
             case 'update':
                 $rules = $this->update_validation_rules(); break;
-            case 'delete':
-                $rules = $this->delete_validation_rules(); break;
+            case 'destroy':
+                $rules = $this->destroy_validation_rules(); break;
             default:
                 $rules = [];
         }
@@ -40,7 +40,7 @@ trait ApiCrudValidationTrate
     /**
      * @return array
      */
-    protected function create_validation_rules(): array
+    protected function store_validation_rules(): array
     {
         return [];
     }
@@ -56,7 +56,7 @@ trait ApiCrudValidationTrate
     /**
      * @return array
      */
-    protected function delete_validation_rules(): array
+    protected function destroy_validation_rules(): array
     {
         return [];
     }

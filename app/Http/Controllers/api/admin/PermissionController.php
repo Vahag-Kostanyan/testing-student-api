@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\api\admin;
 
-use App\core\ApiCrudInterface;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\core\ApiCrudController;
-use App\Models\Role;
-use Illuminate\Http\Request;
+use App\Models\Permission;
 
-class PermissionController extends ApiCrudController implements  ApiCrudInterface
+class PermissionController extends ApiCrudController
 {
+    protected $modelClass = Permission::class;
 }

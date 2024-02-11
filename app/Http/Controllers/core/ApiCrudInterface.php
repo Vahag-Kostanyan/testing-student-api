@@ -11,13 +11,19 @@ interface ApiCrudInterface
      * @param Request $request
      * @return Response
      */
-    public function find(Request $request) : Response;
+    public function index(Request $request) : Response;
     
     /**
      * @param Request $request
      * @return Response
      */
-    public function create(Request $request) : Response;
+    public function show(Request $request, int|string $id) : Response;
+    
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    public function store(Request $request) : Response;
 
     /**
      * @param Request $request
@@ -31,5 +37,5 @@ interface ApiCrudInterface
      * @param int|string $id
      * @return Response
      */
-    public function delete(Request $request, int|string $id) : Response;
+    public function destroy(Request $request, int|string $id) : Response;
 }
