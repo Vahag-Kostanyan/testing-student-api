@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('answer_type', function (Blueprint $table) {
+        Schema::create('answer', function (Blueprint $table) {
             $table->id();
             $table->foreignId('question_id')->nullable(false);
             $table->boolean('is_right');
