@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\core;
 
+use App\core\ApiCrudInterface;
 use App\Http\Controllers\Controller;
+use App\Repositories\core\ApiCrudRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
@@ -21,7 +23,7 @@ abstract class ApiCrudController extends Controller
     /**
      * @inheritDoc
      */
-    public function __construct()
+    public function __construct(protected ApiCrudRepositoryInterface $apiCrudInterface)
     {
         $this->model = app($this->modelClass);
     }
@@ -33,7 +35,7 @@ abstract class ApiCrudController extends Controller
      */
     public function index(Request $request) : JsonResponse
     {
-        return response()->json(['data'=> $this->model->all(), 200]);
+        return response()->json(['data'=> $this->apiCrudInterface->index($request, $this->model), 200]);
     }
     
     /**
@@ -42,7 +44,7 @@ abstract class ApiCrudController extends Controller
      */
     public function show(Request $request, int|string $id) : JsonResponse
     {
-        return response()->json(['data'=> $this->model->find($id), 200]);
+        return response()->json(['data'=> $this->apiCrudInterface->show($request, $id, $this->model), 200]);
     }
 
     /**
@@ -54,9 +56,7 @@ abstract class ApiCrudController extends Controller
         // Request validatiuon
         $this->validation(self::METHOD_STORE, $request);
 
-        $this->model->create($request->all());
-
-        return response()->json(['message'=> 'Created successfully'], 200);
+        return response()->json(['message'=> $this->apiCrudInterface->store($request, $this->model)], 200);
     }
 
     /**
@@ -68,20 +68,8 @@ abstract class ApiCrudController extends Controller
     {
         // Request validatiuon
         $this->validation(self::METHOD_UPDATE, $request);
-        
-        $record = $this->model->find($id);
 
-        if($record) {
-            foreach ($request->all() as $key => $value) {
-                if (array_key_exists($key, $record->getAttributes())) {
-                    $record->{$key} = $value; // Update the attribute with the new value
-                }
-            }            
-        }
-
-        $record->save();
-
-        return response()->json(['message'=> 'Updated successfully'], 200);
+        return response()->json(['message'=> $this->apiCrudInterface->show($request, $id, $this->model)], 200);
     }
 
     /**
@@ -94,9 +82,6 @@ abstract class ApiCrudController extends Controller
         // Request validatiuon
         $this->validation(self::METHOD_DESTROY, $request);
 
-
-        $this->model->delete($id);
-
-        return response()->json(['message'=> 'Deleted successfully'], 200);
+        return response()->json(['message'=> $this->apiCrudInterface->show($request, $id, $this->model)], 200);
     }
 }
