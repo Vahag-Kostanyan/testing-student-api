@@ -54,7 +54,7 @@ class LoginRequest extends FormRequest
             $user = User::where('email', $this->email)->first();
     
             return response()->json([
-                'status' => true,
+                'status' => 200,
                 'message' => 'User Logged In Successfully',
                 'token' => $user->createToken("API TOKEN")->plainTextToken
             ], 200);

@@ -16,6 +16,7 @@ trait BaseApiRequestTrait
     {
         throw new HttpResponseException(response()->json([
             'message' => 'Validation failed',
+            'status' => false,
             'errors' => $validator->errors(),
         ], 422));
     }
