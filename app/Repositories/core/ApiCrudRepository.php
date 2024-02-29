@@ -14,7 +14,14 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
      */
     public function index(Request $request, mixed $model) : mixed
     {
-        return $model->all();
+
+        $include = [];
+
+        if($request->input('include')){
+            $include = explode('.', $request->input('include')); 
+        }
+
+        return $model->with($include)->get();
     }
     
     /**
@@ -24,7 +31,13 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
      */
     public function show(Request $request, int|string $id, mixed $model) : mixed
     {
-        return $model->find($id);
+        $include = [];
+
+        if($request->input('include')){
+            $include = explode('.', $request->input('include')); 
+        }
+
+        return $model->with($include)->find($id);
     }
 
     /**

@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\core;
 
-use App\core\ApiCrudInterface;
 use App\Http\Controllers\Controller;
 use App\Repositories\core\ApiCrudRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 
-abstract class ApiCrudController extends Controller
+abstract class ApiCrudController extends Controller implements ApiCrudInterface
 {
     use ApiCrudValidationTrate;
 

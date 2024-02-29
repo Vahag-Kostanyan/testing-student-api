@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @var string $name
@@ -27,7 +28,11 @@ class Role extends Model
         'updated_at'
     ];
 
-    public function rolePermission(){
+    /**
+     * @return HasMany
+     */
+    public function rolePermission() : HasMany
+    {
         return $this->hasMany(RolePermission::class, 'role_id', 'id');
     }
 

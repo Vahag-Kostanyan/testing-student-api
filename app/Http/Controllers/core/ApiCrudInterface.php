@@ -1,6 +1,6 @@
 <?php
 
-namespace  App\core;
+namespace App\Http\Controllers\core;
 
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
