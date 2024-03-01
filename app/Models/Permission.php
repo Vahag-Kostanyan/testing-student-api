@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @var string $name
@@ -17,6 +17,7 @@ class Permission extends Model
 {
     use HasFactory;
 
+    public static const DEFINER = "get_permission";
     public $table = 'permission';
 
     /**
@@ -33,5 +34,13 @@ class Permission extends Model
         'created_at',
         'updated_at'
     ];
+
+    /**
+     * @return HasMany
+     */
+    public function rolePermission() : HasMany
+    {
+        return $this->hasMany(RolePermission::class, 'permission_id', 'id');
+    }
 
 }

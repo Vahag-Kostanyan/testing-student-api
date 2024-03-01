@@ -10,7 +10,7 @@ class TestType extends Model
 {
     use HasFactory;
 
-
+    public static const DEFINER = "get_user_type";
     public $table = "test_type";
 
     /**

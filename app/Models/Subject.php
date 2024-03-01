@@ -11,6 +11,7 @@ class Subject extends Model
 
 
     public $table = "subject";
+    public static const DEFINER = "get_subject";
 
     /**
      * The attributes that are mass assignable.

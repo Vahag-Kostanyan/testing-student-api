@@ -19,8 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ApiController::class,'index'])->name('index');
 
 Route::middleware(['auth:sanctum', 'action.permission'])->group(function () {
-    Route::resource('/permission', PermissionController::class);
-    Route::resource('/role', RoleController::class); 
+    Route::resource('/permission', PermissionController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+    Route::resource('/role', RoleController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
 });
 
 

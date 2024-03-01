@@ -10,6 +10,7 @@ class GroupType extends Model
     use HasFactory;
 
 
+    public static const DEFINER = "get_group_type";
     public $table = "group_type";
 
     /**
