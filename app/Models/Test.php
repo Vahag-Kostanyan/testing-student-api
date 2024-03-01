@@ -11,6 +11,7 @@ class Test extends Model
     use HasFactory;
 
     public $table = "test";
+    public static const DEFINER = "get_test";
 
     /**
      * The attributes that are mass assignable.

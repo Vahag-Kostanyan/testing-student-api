@@ -9,7 +9,7 @@ class QuestionType extends Model
 {
     use HasFactory;
 
-
+    public static const DEFINER = "get_question_type";
     public $table = "question_type";
 
     /**

@@ -10,6 +10,7 @@ class GroupSubject extends Model
 {
     use HasFactory;
 
+    public static const DEFINER = "get_group_subject";
 
     public $table = "group_subject";
 

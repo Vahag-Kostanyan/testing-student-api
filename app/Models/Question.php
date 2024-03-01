@@ -10,7 +10,7 @@ class Question extends Model
 {
     use HasFactory;
 
-
+    public static const DEFINER = "get_question";
     public $table = "question";
 
     /**

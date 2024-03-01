@@ -17,6 +17,7 @@ class Permission extends Model
 {
     use HasFactory;
 
+    public static const DEFINER = "get_permission";
     public $table = 'permission';
 
     /**
