@@ -25,7 +25,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public static const DEFINER = "get_user";
+    public const DEFINER = "get_user";
     /**
      * The attributes that are mass assignable.
      *

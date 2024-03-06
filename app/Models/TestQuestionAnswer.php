@@ -11,7 +11,7 @@ class TestQuestionAnswer extends Model
     use HasFactory;
 
 
-    public static const DEFINER = "get_test_question_answer";
+    public const DEFINER = "get_test_question_answer";
     public $table = "test_question_answer";
 
     /**

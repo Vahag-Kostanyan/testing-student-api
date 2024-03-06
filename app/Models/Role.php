@@ -15,7 +15,7 @@ class Role extends Model
 {
     use HasFactory;
 
-    public static const DEFINER = "get_role";
+    public const DEFINER = "get_role";
     public $table = "role";
 
     /**

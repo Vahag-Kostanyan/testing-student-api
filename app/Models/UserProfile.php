@@ -11,7 +11,7 @@ class UserProfile extends Model
     use HasFactory;
 
 
-    public static const DEFINER = "get_user_procfile";
+    public const DEFINER = "get_user_procfile";
 
     public $table = "user_profile";
 

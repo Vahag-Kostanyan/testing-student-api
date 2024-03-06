@@ -10,7 +10,7 @@ class Group extends Model
 {
     use HasFactory;
 
-    public static const DEFINER = "get_group";
+    public const DEFINER = "get_group";
     public $table = "group";
 
     /**

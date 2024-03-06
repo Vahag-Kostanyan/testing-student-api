@@ -10,7 +10,7 @@ class GroupProfile extends Model
 {
     use HasFactory;
 
-    public static const DEFINER = "get_group_profile";
+    public const DEFINER = "get_group_profile";
     public $table = "group_profile";
 
     /**
