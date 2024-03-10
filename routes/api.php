@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\api\admin\PermissionController;
-use App\Http\Controllers\api\admin\RoleController;
+use App\Http\Controllers\api\admin\admin\RoleController;
 use App\Http\Controllers\api\ApiController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +18,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ApiController::class,'index'])->name('index');
 
 Route::middleware(['auth:sanctum', 'action.permission'])->group(function () {
-    Route::resource('/permission', PermissionController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
-    Route::resource('/role', RoleController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
+
+    Route::prefix('/admin')->group(function () {
+        Route::resource('/role', RoleController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
+    });
+
+    Route::prefix('/manager')->group(function () {
+    });
+
+    Route::prefix('/teacher')->group(function () {
+    });
+    
 });
 
 

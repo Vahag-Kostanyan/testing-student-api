@@ -2,13 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\RolePermission;
 use Closure;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use function App\Helper\hasPermission;
 
 class ActionPermissionMiddleware
 {
@@ -27,11 +25,9 @@ class ActionPermissionMiddleware
             return $next($request);
         }
 
-        $permissions = $role->load('rolePermission.permission')->rolePermission;
-
         $route = substr(request()->path(), 3);
 
-        if(hasPermission($permissions, $route)) return $next();
+        if(hasPermission($role->id, $route)) return $next($request);
 
         throw new HttpResponseException(response()->json([
             'status' => false,
