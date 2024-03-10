@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\core\ApiCrudInterface;
 use App\Repositories\core\ApiCrudRepository;
 use App\Repositories\core\ApiCrudRepositoryInterface;
 use Illuminate\Support\ServiceProvider;

@@ -18,7 +18,7 @@ class RolePermission extends Model
     use HasFactory;
 
     public $table = 'role_permission';
-    public static const DEFINER = "get_role_permission";
+    public const DEFINER = "get_role_permission";
     
     /**
      * The attributes that are mass assignable.

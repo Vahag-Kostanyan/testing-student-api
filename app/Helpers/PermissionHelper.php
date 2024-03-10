@@ -1,46 +1,25 @@
 <?php
 
-namespace App\Helper;
-
+use App\Models\Permission;
 use App\Models\RolePermission;
-use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @param Collection $permissions
+ * @param int $role_id
  * @param string $route
  * @return bool
  */
 
-function hasPermission(Collection $permissions, string $route) : bool
+function hasPermission(int $role_id, string $route): bool
 {
-    foreach($permissions as $permission){
-        if($permission->permission->page === $route){
-            $access = array_map('intval', str_split($permission->permission->permission));
-            
-            switch(request()->method()){
-                case 'GET':
-                    if($access[1] == 1){
-                        return true;
-                    }
-                case 'POST':
-                    if($access[0] == 1){
-                        return true;
-                    }
-                case 'PUT':
-                    if($access[2] == 1){
-                        return true;
-                    }
-                case 'PUTCH':
-                    if($access[2] == 1){
-                        return true;
-                    }
-                case 'DELETE':
-                    if($access[3] == 1){
-                        return true;
-                    }
-            }
-        }
-    }
+    $methods = ['GET' => 'read', 'POST' => 'create', 'PUT' => 'update', 'PATCH' => 'update', 'DELETE' => 'delete'];
 
+    $permission_id = Permission::where('page', $route)->where('method', $methods[request()->method()])->first()->id;
+    
+    if(!$permission_id) return false;
+
+    $role_permission = RolePermission::where('role_id', $role_id)->where('permission_id', $permission_id)->first();
+    
+    if($role_permission) return true;
+    
     return false;
 }

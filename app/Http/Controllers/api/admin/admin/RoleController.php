@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api\admin;
+namespace App\Http\Controllers\api\admin\admin;
 
 use App\Http\Controllers\core\ApiCrudController;
 use App\Http\Controllers\core\ApiCrudInterface;
