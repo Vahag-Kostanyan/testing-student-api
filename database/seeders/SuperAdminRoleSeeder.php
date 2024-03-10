@@ -19,10 +19,9 @@ class SuperAdminRoleSeeder extends Seeder
         $role = Role::create(["name"=> "superAdmin"]);
     
         $permission = Permission::create([
-            "name"=> "adminPanel",
-            "definer"=> "admin_panel",
-            "page"=> "/",
-            "permission"=> "1111",
+            "name"=> "superAdmin",
+            "page"=> "all",
+            "method"=> "all",
         ]);
 
         RolePermission::create([
