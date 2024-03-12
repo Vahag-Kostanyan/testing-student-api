@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\api\admin\admin\PermisionController;
 use App\Http\Controllers\api\admin\admin\RoleController;
+use App\Http\Controllers\api\admin\admin\RolePermissionController;
+use App\Http\Controllers\api\admin\admin\UserConntroller;
+use App\Http\Controllers\api\admin\admin\UserProfileConntroller;
 use App\Http\Controllers\api\ApiController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +25,10 @@ Route::middleware(['auth:sanctum', 'action.permission'])->group(function () {
 
     Route::prefix('/admin')->group(function () {
         Route::resource('/role', RoleController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
+        Route::resource('/permission', PermisionController::class)->only(['index']); 
+        Route::resource('/rolePermission', RolePermissionController::class)->only(['index', 'store', 'update', 'destroy']); 
+        Route::resource('/user', UserConntroller::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
+        Route::resource('/user_profile', UserProfileConntroller::class)->only(['show', 'update']); 
     });
 
     Route::prefix('/manager')->group(function () {
