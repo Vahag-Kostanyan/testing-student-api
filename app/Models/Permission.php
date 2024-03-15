@@ -27,10 +27,8 @@ class Permission extends Model
      */
     protected $fillable = [
         'name',
-        'definer',
         'page',
-        'permission',
-        'parent_id',
+        'method',
         'created_at',
         'updated_at'
     ];
@@ -41,6 +39,15 @@ class Permission extends Model
     public function rolePermission() : HasMany
     {
         return $this->hasMany(RolePermission::class, 'permission_id', 'id');
+    }
+
+
+    /**
+     * @return HasMany
+     */
+    public function subPermission() : HasMany
+    {
+        return $this->hasMany(SubPermission::class, 'permission_id', 'id');
     }
 
 }
