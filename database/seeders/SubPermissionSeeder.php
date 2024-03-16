@@ -13,24 +13,10 @@ class SubPermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $permissions = Permission::all();
+        $sub_permissons = getSubPermissions();
 
-
-        foreach($permissions  as $permission)
-        {   
-            if($permission->page == '/admin/role' && $permission->method == 'read')
-            {
-                SubPermission::create([
-                    'permission_id' => $permission->id,
-                    'page' => '/admin/permission',
-                    'method' => 'read',
-                ]);
-            }
-            SubPermission::create([
-                'permission_id' => $permission->id,
-                'page' => $permission->page,
-                'method' => $permission->method,
-            ]);
-        }
+        foreach ($sub_permissons as $sub_permisson) {
+            SubPermission::create($sub_permisson);
+    }
     }
 }
