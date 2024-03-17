@@ -24,11 +24,11 @@ Route::get('/', [ApiController::class,'index'])->name('index');
 Route::middleware(['auth:sanctum', 'action.permission'])->group(function () {
 
     Route::prefix('/admin')->group(function () {
-        Route::resource('/role', RoleController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
-        Route::resource('/permission', PermisionController::class)->only(['index']); 
-        Route::resource('/rolePermission', RolePermissionController::class)->only(['index', 'store', 'update', 'destroy']); 
-        Route::resource('/user', UserConntroller::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
-        Route::resource('/user_profile', UserProfileConntroller::class)->only(['show', 'update']); 
+        Route::resource('/roles', RoleController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
+        Route::resource('/permissions', PermisionController::class)->only(['index']); 
+        Route::resource('/rolePermissions', RolePermissionController::class)->only(['index', 'store', 'update', 'destroy']); 
+        Route::resource('/users', UserConntroller::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
+        // Route::resource('/user_profile', UserProfileConntroller::class)->only(['show', 'update']); 
     });
 
     Route::prefix('/manager')->group(function () {

@@ -219,7 +219,7 @@ function getSubPermissions(): array
     $subPermissions = [];
 
     $permissions_for_role = Permission::where('page', '/admin/role')->get();
-    $sub_permissions_for_role = ['model/role', 'model/permission', 'model/subPermission'];
+    $sub_permissions_for_role = ['admin/roles', 'admin/permissions', 'admin/subPermissions'];
 
     foreach ($permissions_for_role as $permission) {
         foreach ($sub_permissions_for_role as $sub_permission) {
