@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('permission', function (Blueprint $table) {
+        Schema::create('sub_permission', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable(false);
-            $table->string('type')->nullable(false);
+            $table->foreignId('permission_id')->nullable(false);
             $table->string('page')->nullable(false);
             $table->string('method')->nullable(false);
-            $table->string('group_id')->nullable(false);
-            $table->string('parent_group_id')->default(null)->nullable(true);
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('permission');
+        Schema::dropIfExists('sub_permission');
     }
 };
