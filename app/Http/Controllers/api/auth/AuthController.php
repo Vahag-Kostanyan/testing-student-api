@@ -27,7 +27,7 @@ class AuthController extends Controller
      * @throws HttpResponseException
      * @return Response
      */
-    public function login(LoginRequest $request): Response
+    public function login(LoginRequest $request): Response | HttpResponseException
     {
         return $request->authenticate();
     }
