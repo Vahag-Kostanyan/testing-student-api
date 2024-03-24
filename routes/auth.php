@@ -8,4 +8,5 @@ Route::post('/login', [AuthController::class, 'login'])
         ->middleware('guest')
         ->name('login');
 
-Route::get('/', [AuthController::class, 'getMe'])->middleware('auth:sanctum');
+Route::get('/getMe', [AuthController::class, 'getMe'])->middleware('auth:sanctum');
+Route::get('/users/permissions', [AuthController::class, 'getUserPermissions'])->middleware('auth:sanctum');

@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @var string $name
- * @var string $definer
- * @var string $permission
+ * @var string $title
+ * @var string $type
+ * @var string $page
+ * @var string $method
+ * @var string $group_id
+ * @var string $parent_group_id
  * @var string $created_at
  * @var string $updated_at
  */

@@ -18,18 +18,18 @@ class SuperAdminRoleSeeder extends Seeder
     {
         $role = Role::create(["name"=> "superAdmin"]);
     
-        $permission = Permission::create([
-            "title"=> "superAdmin",
-            "page"=> "all",
-            'type' => 'all',
-            "method"=> "all",
-            "group_id" => '65f5dd6e67d74',
-            "parent_group_id" => null
-        ]);
+        // $permission = Permission::create([
+        //     "title"=> "superAdmin",
+        //     "page"=> "all",
+        //     'type' => 'all',
+        //     "method"=> "all",
+        //     "group_id" => '65f5dd6e67d74',
+        //     "parent_group_id" => null
+        // ]);
 
-        RolePermission::create([
-            "role_id"=> $role->id,
-            "permission_id"=> $permission->id,
-        ]);
+        // RolePermission::create([
+        //     "role_id"=> $role->id,
+        //     "permission_id"=> $permission->id,
+        // ]);
     }
 }
