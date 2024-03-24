@@ -7,13 +7,13 @@ use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;  
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class LoginRequest extends FormRequest
 {
     use BaseApiRequestTrait;
-    
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -41,30 +41,21 @@ class LoginRequest extends FormRequest
      * @return Response
      * @throws HttpResponseException
      */
-    public function authenticate() : Response
+    public function authenticate(): Response|HttpResponseException
     {
-        try{
-            if(!Auth::attempt($this->only(['email', 'password']))){
-                throw new HttpResponseException(response()->json([
-                    'status' => false,
-                    'message' => 'Email & Password does not match with our record.',
-                ], 401));
-            }
-    
-            $user = User::where('email', $this->email)->first();
-    
-            return response()->json([
-                'status' => 200,
-                'message' => 'User Logged In Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
-            ], 200);
-            
-        }catch (Throwable $th)
-        {
-            return new HttpResponseException(response()->json([
+        if (!Auth::attempt($this->only(['email', 'password']))) {
+            throw new HttpResponseException(response()->json([
                 'status' => false,
-                'message' => $th->getMessage()
-            ], 500));
+                'message' => 'Email & Password does not match with our record.',
+            ], 401));
         }
+
+        $user = User::where('email', $this->email)->first();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'User Logged In Successfully',
+            'token' => $user->createToken("API TOKEN")->plainTextToken
+        ], 200);
     }
 }
