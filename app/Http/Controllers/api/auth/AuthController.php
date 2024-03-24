@@ -17,7 +17,7 @@ class AuthController extends Controller
      * @throws HttpResponseException
      * @return Response
      */
-    public function createUser(CreateUserRequest $request) : Response
+    public function createUser(CreateUserRequest $request): Response
     {
         return $request->registore();
     }
@@ -27,21 +27,29 @@ class AuthController extends Controller
      * @throws HttpResponseException
      * @return Response
      */
-    public function login(LoginRequest $request) : Response
+    public function login(LoginRequest $request): Response
     {
         return $request->authenticate();
     }
 
-    
+
     /**
      * @param Request $request
      * @return Response
      */
-    public function getMe(Request $request) : Response
+    public function getMe(Request $request): Response
     {
         return response()->json([
-            'user' => auth()->user()
+            'user' => auth()->user()->load('userProfile')
         ], 200);
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    public function getUserPermissions(Request $request): Response
+    {
+        return response()->json(getUserPermissions(), 200);
+    }
 }
