@@ -66,7 +66,7 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
     public function update(Request $request, int|string $id) : JsonResponse
     {
         // Request validatiuon
-        $this->validation(self::METHOD_UPDATE, $request);
+        $this->validation(self::METHOD_UPDATE, $request, $id);
 
         return response()->json(['message'=> $this->apiCrudInterface->show($request, $id, $this->model)], 200);
     }
@@ -79,7 +79,7 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
     public function destroy(Request $request, int|string $id) : JsonResponse
     {
         // Request validatiuon
-        $this->validation(self::METHOD_DESTROY, $request);
+        $this->validation(self::METHOD_DESTROY, $request, $id);
 
         return response()->json(['message'=> $this->apiCrudInterface->show($request, $id, $this->model)], 200);
     }
