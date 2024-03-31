@@ -17,6 +17,7 @@ trait ApiCrudValidationTrate
     {
         switch ($action) {
             case 'store':
+                $this->store_before_validation();
                 $rules = $this->store_validation_rules();
                 break;
             case 'update':
@@ -47,6 +48,14 @@ trait ApiCrudValidationTrate
     protected function store_validation_rules(): array
     {
         return [];
+    }
+
+    /**
+     * @return void
+     * @throws HttpResponseException
+     */
+    protected function store_before_validation(): void 
+    {
     }
 
     /**
