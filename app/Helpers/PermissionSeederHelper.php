@@ -62,7 +62,7 @@ function permissions(): array
         [
             "title" => "Role",
             'type' => Permission::TYPE_SUB_MENU,
-            "page" => "/admin/role",
+            "page" => "/admin/roles",
             "method" => "read",
             "group_id" => "65f5d7cb37580",
             "parent_group_id" => "65f5d7860eaa0"
@@ -203,9 +203,13 @@ function getPermissions(): array
     foreach ($permissions as $permission) {
         $fullPermissions[] = $permission;
 
-        foreach ($methods as $method) {
-            $permission['method'] = $method;
+        if($permission['type'] === Permission::TYPE_MENU){
             $fullPermissions[] = $permission;
+        }else{
+            foreach ($methods as $method) {
+                $permission['method'] = $method;
+                $fullPermissions[] = $permission;
+            }
         }
     }
 
@@ -216,20 +220,19 @@ function getPermissions(): array
 
 function getSubPermissions(): array
 {
-    $subPermissions = [];
+    $admin_role_read = Permission::where('page', '/admin/roles')->where('method', 'read')->first();
+    $admin_role_create = Permission::where('page', '/admin/roles')->where('method', 'create')->first();
 
-    $permissions_for_role = Permission::where('page', '/admin/role')->get();
-    $sub_permissions_for_role = ['admin/roles', 'admin/permissions', 'admin/subPermissions'];
-
-    foreach ($permissions_for_role as $permission) {
-        foreach ($sub_permissions_for_role as $sub_permission) {
-            $subPermissions[] = [
-                'permission_id' => $permission->id,
-                'page' => $sub_permission,
-                'method' => $permission->method,
-            ];
-        }
-    }
-
-    return $subPermissions;
+    return [
+        [
+            "permission_id" => $admin_role_read->id,
+            "page" => 'admin/permissions',
+            "method" => "read"
+        ],
+        [
+            "permission_id" => $admin_role_create->id,
+            "page" => 'admin/rolePermissions',
+            "method" => "create"
+        ]
+    ];
 }

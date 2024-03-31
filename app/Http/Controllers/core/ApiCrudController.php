@@ -15,9 +15,9 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
     protected $modelClass;
     private $model;
 
-    private const METHOD_STORE = "store";
-    private const METHOD_UPDATE = "update";
-    private const METHOD_DESTROY = "destroy";
+    protected const METHOD_STORE = "store";
+    protected const METHOD_UPDATE = "update";
+    protected const METHOD_DESTROY = "destroy";
 
     /**
      * @inheritDoc
