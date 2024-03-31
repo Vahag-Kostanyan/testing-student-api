@@ -13,21 +13,26 @@ trait ApiCrudValidationTrate
      * @param string $method
      * @param Request $request
      */
-    protected function validation(string $action, Request $request)
+    protected function validation(string $action, Request $request, int|null $id = null)
     {
-        switch($action){
+        switch ($action) {
             case 'store':
-                $rules = $this->store_validation_rules(); break;
+                $this->store_before_validation();
+                $rules = $this->store_validation_rules();
+                break;
             case 'update':
-                $rules = $this->update_validation_rules(); break;
+                $this->update_before_validation($id);
+                $rules = $this->update_validation_rules();
+                break;
             case 'destroy':
-                $rules = $this->destroy_validation_rules(); break;
+                $this->destroy_before_validation($id);
+                $rules = $this->destroy_validation_rules();
+                break;
             default:
                 $rules = [];
         }
 
         $validateor = Validator::make($request->all(), $rules);
-    
         if ($validateor->fails()) {
             throw new HttpResponseException(response()->json([
                 'message' => 'Validation failed',
@@ -46,6 +51,14 @@ trait ApiCrudValidationTrate
     }
 
     /**
+     * @return void
+     * @throws HttpResponseException
+     */
+    protected function store_before_validation(): void 
+    {
+    }
+
+    /**
      * @return array
      */
     protected function update_validation_rules(): array
@@ -54,10 +67,28 @@ trait ApiCrudValidationTrate
     }
 
     /**
+     * @param int|null $id
+     * @return void
+     * @throws HttpResponseException
+     */
+    protected function update_before_validation(int|null $id): void 
+    {
+    }
+
+    /**
      * @return array
      */
     protected function destroy_validation_rules(): array
     {
         return [];
+    }
+
+    /**
+     * @return void
+     * @param int|null $id
+     * @throws HttpResponseException
+     */
+    protected function destroy_before_validation(int|null $id): void
+    {
     }
 }

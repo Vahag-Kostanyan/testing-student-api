@@ -15,9 +15,9 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
     protected $modelClass;
     private $model;
 
-    private const METHOD_STORE = "store";
-    private const METHOD_UPDATE = "update";
-    private const METHOD_DESTROY = "destroy";
+    protected const METHOD_STORE = "store";
+    protected const METHOD_UPDATE = "update";
+    protected const METHOD_DESTROY = "destroy";
 
     /**
      * @inheritDoc
@@ -66,7 +66,7 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
     public function update(Request $request, int|string $id) : JsonResponse
     {
         // Request validatiuon
-        $this->validation(self::METHOD_UPDATE, $request);
+        $this->validation(self::METHOD_UPDATE, $request, $id);
 
         return response()->json(['message'=> $this->apiCrudInterface->show($request, $id, $this->model)], 200);
     }
@@ -79,7 +79,7 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
     public function destroy(Request $request, int|string $id) : JsonResponse
     {
         // Request validatiuon
-        $this->validation(self::METHOD_DESTROY, $request);
+        $this->validation(self::METHOD_DESTROY, $request, $id);
 
         return response()->json(['message'=> $this->apiCrudInterface->show($request, $id, $this->model)], 200);
     }
