@@ -203,9 +203,7 @@ function getPermissions(): array
     foreach ($permissions as $permission) {
         $fullPermissions[] = $permission;
 
-        if($permission['type'] === Permission::TYPE_MENU){
-            $fullPermissions[] = $permission;
-        }else{
+        if($permission['type'] !== Permission::TYPE_MENU){
             foreach ($methods as $method) {
                 $permission['method'] = $method;
                 $fullPermissions[] = $permission;

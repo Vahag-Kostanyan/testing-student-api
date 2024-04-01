@@ -17,14 +17,8 @@ class ActionPermissionMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $except = ['api/getme', 'api/login'];
-
         $role = auth()->user()->load('role')->role;
         
-        if($role->name === "superAdmin" || in_array(request()->path(), $except)){
-            return $next($request);
-        }
-
         $route = substr(request()->path(), 3);
 
         if(hasPermission($role->id, $route)) return $next($request);

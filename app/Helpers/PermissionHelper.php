@@ -63,21 +63,29 @@ function convertRoute(string $route): string
  */
 function getUserPermissions() : array
 {
+    $rolePermissions = auth()->user()->load('role.rolePermission')->role->rolePermission;
+
+    $permissions_ids = [];
+
+    foreach($rolePermissions as $rolePermission)
+    {
+        $permissions_ids[] = $rolePermission->permission_id;
+    }
+
+    $permissionsList = Permission::select(['title', 'type', 'page', 'method'])->whereIn('id', $permissions_ids)->get()->groupBy('page')->toArray();
+
     $permissions = [];
 
-    if (auth()->user()->load('role')->role->name == 'superAdmin') {
-        $permissions = Permission::select(['title', 'type', 'page', 'method'])->get()->toArray();
-    }else{
-        $rolePermissions = auth()->user()->load('role.rolePermission')->role->rolePermission;
+    foreach($permissionsList as $permissionList)
+    {
+        $methodArray = [];
 
-        $permissions_ids = [];
-
-        foreach($rolePermissions as $rolePermission)
-        {
-            $permissions_ids[] = $rolePermission->permission_id;
+        foreach($permissionList as $item){
+            $methodArray[] = $item['method']; 
         }
 
-        $permissions = Permission::select(['title', 'type', 'page', 'method'])->whereIn('id', $permissions_ids)->get()->toArray();
+        $permissionList[0]['method'] = $methodArray;
+        $permissions[] = $permissionList[0];
     }
 
     return $permissions;
