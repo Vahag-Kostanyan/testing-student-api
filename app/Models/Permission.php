@@ -11,8 +11,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @var string $type
  * @var string $page
  * @var string $method
- * @var string $group_id
- * @var string $parent_group_id
  * @var string $created_at
  * @var string $updated_at
  */
@@ -38,8 +36,6 @@ class Permission extends Model
         'type',
         'page',
         'method',
-        'group_id',
-        'parent_group_id',
         'created_at',
         'updated_at'
     ];

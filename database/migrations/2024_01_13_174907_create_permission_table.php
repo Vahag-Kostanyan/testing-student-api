@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('type')->nullable(false);
             $table->string('page')->nullable(false);
             $table->string('method')->nullable(false);
-            $table->string('group_id')->nullable(false);
-            $table->string('parent_group_id')->default(null)->nullable(true);
             $table->timestamps();
         });
     }

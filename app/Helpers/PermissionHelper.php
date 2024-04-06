@@ -17,16 +17,18 @@ function hasPermission(int $role_id, string $route): bool
 
     $methods = ['GET' => 'read', 'POST' => 'create', 'PUT' => 'update', 'PATCH' => 'update', 'DELETE' => 'delete'];
 
-    $permission_id = Permission::where('page', $route)->where('method', $methods[request()->method()])->first()->id;
+    $permission = Permission::where('page', $route)->where('method', $methods[request()->method()])->first();
 
-    if (!$permission_id) {
-        $permission_id = SubPermission::where('page', $route)->where('method', $methods[request()->method()])->first();
+    if (!$permission) {
+        $subPermission = SubPermission::where('page', $route)->where('method', $methods[request()->method()])->first();
 
-        if (!$permission_id)
+        if (!$subPermission)
             return false;
+
+        $permission = Permission::find($subPermission->permission_id);
     }
 
-    $role_permission = RolePermission::where('role_id', $role_id)->where('permission_id', $permission_id)->first();
+    $role_permission = RolePermission::where('role_id', $role_id)->where('permission_id', $permission->id)->first();
 
     if ($role_permission)
         return true;
@@ -40,7 +42,7 @@ function hasPermission(int $role_id, string $route): bool
  */
 function convertRoute(string $route): string
 {
-    if (request()->method() == 'PUT' || request()->method() == 'PATCH' || request()->method() == 'GET') {
+    if (request()->method() == 'PUT' || request()->method() == 'PATCH' || request()->method() == 'DELETE' || request()->method() == 'GET') {
         $routeArray = explode('/', ltrim($route, '/'));
         $route = '';
         foreach ($routeArray as $item) {

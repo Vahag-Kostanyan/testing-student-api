@@ -8,7 +8,6 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
-use Throwable;
 
 class LoginRequest extends FormRequest
 {
@@ -46,7 +45,7 @@ class LoginRequest extends FormRequest
         if (!Auth::attempt($this->only(['email', 'password']))) {
             throw new HttpResponseException(response()->json([
                 'status' => false,
-                'message' => 'Email & Password does not match with our record.',
+                'errors' => ['Email & Password does not match with our record!']                
             ], 401));
         }
 

@@ -25,7 +25,7 @@ class ActionPermissionMiddleware
 
         throw new HttpResponseException(response()->json([
             'status' => false,
-            'message' => 'Permission dinide',
+            'errors' => ['Permission dinide!']
         ], 403));
     }
 }

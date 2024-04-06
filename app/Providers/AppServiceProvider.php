@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\api\admin\admin\rolePermission\RolePermissionRepository;
 use App\Repositories\api\admin\admin\rolePermission\RolePermissionRepositoryInterface;
+use App\Repositories\api\admin\admin\user\UserRepository;
+use App\Repositories\api\admin\admin\user\UserRepositoryInterface;
 use App\Repositories\core\ApiCrudRepository;
 use App\Repositories\core\ApiCrudRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -17,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(ApiCrudRepositoryInterface::class, ApiCrudRepository::class);
         $this->app->bind(RolePermissionRepositoryInterface::class, RolePermissionRepository::class);
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 
     /**
