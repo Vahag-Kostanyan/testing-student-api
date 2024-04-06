@@ -21,7 +21,7 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
             $include = explode('.', $request->input('include')); 
         }
 
-        return $model->with($include)->get();
+        return ['data'=> $model->with($include)->get()];
     }
     
     /**
@@ -37,7 +37,7 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
             $include = explode('.', $request->input('include')); 
         }
 
-        return $model->with($include)->find($id);
+        return ['data'=> $model->with($include)->find($id)];
     }
 
     /**
@@ -49,7 +49,7 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
     {
         $model->create($request->all());
 
-        return 'Created successfully';
+        return ['message'=> 'Created successfully'];
     }
 
     /**
@@ -72,7 +72,7 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
 
         $record->save();
 
-        return 'Updated successfully';
+        return ['message'=> 'Updated successfully'];
     }
 
     /**
@@ -83,8 +83,8 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
      */
     public function destroy(Request $request, int|string $id, mixed $model) : mixed
     {
-        $model->delete($id);
+        $model->find($id)->delete();
 
-        return 'Deleted successfully';
+        return ['message'=> 'Deleted successfully'];
     }
 }

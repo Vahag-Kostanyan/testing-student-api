@@ -17,7 +17,7 @@ class Authenticate extends Middleware
 
         throw new HttpResponseException(response()->json([
             'status' => false,
-            'message' => 'Invalid user token!',
+            'errors' => ['Invalid user token!']
         ], 401));
     }
 }

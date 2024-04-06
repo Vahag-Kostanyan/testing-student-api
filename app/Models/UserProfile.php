@@ -14,6 +14,7 @@ class UserProfile extends Model
     public const DEFINER = "get_user_procfile";
 
     public $table = "user_profile";
+    protected $primaryKey = 'user_id';
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +25,7 @@ class UserProfile extends Model
         'user_id',
         'first_name',
         'last_name',
-        'middke_name',
+        'middle_name',
         'age',
         'courses',
         'created_at',
