@@ -17,15 +17,15 @@ trait ApiCrudValidationTrate
     {
         switch ($action) {
             case 'store':
-                $this->store_before_validation();
+                $this->store_before_validation($request);
                 $rules = $this->store_validation_rules();
                 break;
             case 'update':
-                $this->update_before_validation($id);
+                $this->update_before_validation($request, $id);
                 $rules = $this->update_validation_rules();
                 break;
             case 'destroy':
-                $this->destroy_before_validation($id);
+                $this->destroy_before_validation($request, $id);
                 $rules = $this->destroy_validation_rules();
                 break;
             default:
@@ -51,10 +51,11 @@ trait ApiCrudValidationTrate
     }
 
     /**
+     * @param Request $request
      * @return void
      * @throws HttpResponseException
      */
-    protected function store_before_validation(): void 
+    protected function store_before_validation(Request $request): void 
     {
     }
 
@@ -68,11 +69,21 @@ trait ApiCrudValidationTrate
 
     /**
      * @param int|null $id
+     * @param Request $request
      * @return void
      * @throws HttpResponseException
      */
-    protected function update_before_validation(int|null $id): void 
+    protected function update_before_validation(Request $request, int|null $id): void 
     {
+        $record = $this->model->find($id);
+        
+        if(!$record){
+            throw new HttpResponseException(response()->json([
+                'message' => 'Validation failed',
+                'status' => false,
+                'errors' => ['Invalid record id'],
+            ], 422));
+        }
     }
 
     /**
@@ -86,9 +97,19 @@ trait ApiCrudValidationTrate
     /**
      * @return void
      * @param int|null $id
+     * @param Request $request
      * @throws HttpResponseException
      */
-    protected function destroy_before_validation(int|null $id): void
+    protected function destroy_before_validation(Request $request, int|null $id): void
     {
+        $record = $this->model->find($id);
+        
+        if(!$record){
+            throw new HttpResponseException(response()->json([
+                'message' => 'Validation failed',
+                'status' => false,
+                'errors' => ['Invalid record id'],
+            ], 422));
+        }
     }
 }

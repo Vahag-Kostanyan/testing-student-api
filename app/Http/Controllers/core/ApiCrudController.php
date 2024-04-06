@@ -13,7 +13,12 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
     use ApiCrudValidationTrate;
 
     protected $modelClass;
-    private $model;
+    protected $model;
+    protected $indexRepository;
+    protected $showRepository;
+    protected $storeRepository;
+    protected $updateRepository;
+    protected $deleteRepository;
 
     protected const METHOD_STORE = "store";
     protected const METHOD_UPDATE = "update";
@@ -22,7 +27,7 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
     /**
      * @inheritDoc
      */
-    public function __construct(protected ApiCrudRepositoryInterface $apiCrudInterface)
+    public function __construct(protected ApiCrudRepositoryInterface $apiCrudRepository)
     {
         $this->model = app($this->modelClass);
     }
@@ -34,7 +39,10 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
      */
     public function index(Request $request) : JsonResponse
     {
-        return response()->json(['data'=> $this->apiCrudInterface->index($request, $this->model), 200]);
+        if($this->indexRepository){
+            return response()->json($this->indexRepository->index($request), 200);
+        }
+        return response()->json($this->apiCrudRepository->index($request, $this->model), 200);
     }
     
     /**
@@ -43,7 +51,10 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
      */
     public function show(Request $request, int|string $id) : JsonResponse
     {
-        return response()->json(['data'=> $this->apiCrudInterface->show($request, $id, $this->model), 200]);
+        if($this->showRepository){
+            return response()->json($this->showRepository->show($request, $id), 200);
+        }
+        return response()->json($this->apiCrudRepository->show($request, $id, $this->model), 200);
     }
 
     /**
@@ -55,7 +66,10 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
         // Request validatiuon
         $this->validation(self::METHOD_STORE, $request);
 
-        return response()->json(['message'=> $this->apiCrudInterface->store($request, $this->model)], 200);
+        if($this->storeRepository){
+            return response()->json($this->storeRepository->store($request), 200);
+        }
+        return response()->json($this->apiCrudRepository->store($request, $this->model), 200);
     }
 
     /**
@@ -68,7 +82,10 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
         // Request validatiuon
         $this->validation(self::METHOD_UPDATE, $request, $id);
 
-        return response()->json(['message'=> $this->apiCrudInterface->show($request, $id, $this->model)], 200);
+        if($this->updateRepository){
+            return response()->json($this->updateRepository->update($request, $id), 200);
+        }
+        return response()->json($this->apiCrudRepository->show($request, $id, $this->model), 200);
     }
 
     /**
@@ -81,6 +98,9 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
         // Request validatiuon
         $this->validation(self::METHOD_DESTROY, $request, $id);
 
-        return response()->json(['message'=> $this->apiCrudInterface->show($request, $id, $this->model)], 200);
+        if($this->deleteRepository){
+            return response()->json($this->deleteRepository->destroy($request, $id), 200);
+        }
+        return response()->json($this->apiCrudRepository->destroy($request, $id, $this->model), 200);
     }
 }

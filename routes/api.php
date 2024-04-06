@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\api\admin\admin\PermisionController;
+use App\Http\Controllers\api\admin\admin\PermissionController;
 use App\Http\Controllers\api\admin\admin\RoleController;
 use App\Http\Controllers\api\admin\admin\RolePermissionController;
 use App\Http\Controllers\api\admin\admin\UserConntroller;
@@ -24,7 +24,7 @@ Route::middleware(['auth:sanctum', 'action.permission'])->group(function () {
 
     Route::prefix('/admin')->group(function () {
         Route::resource('/roles', RoleController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
-        Route::resource('/permissions', PermisionController::class)->only(['index']); 
+        Route::resource('/permissions', PermissionController::class)->only(['index']); 
         Route::post('/rolePermissions', [RolePermissionController::class, 'creadAndUpdate']);
         Route::resource('/users', UserConntroller::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
         // Route::resource('/user_profile', UserProfileConntroller::class)->only(['show', 'update']); 
