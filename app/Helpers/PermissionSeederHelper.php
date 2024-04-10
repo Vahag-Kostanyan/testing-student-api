@@ -167,8 +167,10 @@ function getPermissions(): array
 
         if($permission['type'] !== Permission::TYPE_MENU){
             foreach ($methods as $method) {
-                $permission['method'] = $method;
-                $fullPermissions[] = $permission;
+                if($permission['page'] != '/profile' || $method != 'create'){
+                    $permission['method'] = $method;
+                    $fullPermissions[] = $permission;
+                }
             }
         }
     }
@@ -182,6 +184,7 @@ function getSubPermissions(): array
 {
     $admin_role_read = Permission::where('page', '/admin/roles')->where('method', 'read')->first();
     $admin_role_create = Permission::where('page', '/admin/roles')->where('method', 'create')->first();
+    $profile_role_update = Permission::where('page', '/profile')->where('method', 'update')->first();
 
     return [
         [
@@ -193,6 +196,11 @@ function getSubPermissions(): array
             "permission_id" => $admin_role_create->id,
             "page" => '/admin/rolePermissions',
             "method" => "create"
+        ],
+        [
+            "permission_id" => $profile_role_update->id,
+            "page" => '/profile/changePassword',
+            "method" => "update"
         ]
     ];
 }
