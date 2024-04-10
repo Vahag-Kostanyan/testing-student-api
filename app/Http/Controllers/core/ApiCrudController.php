@@ -19,7 +19,8 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
     protected $storeRepository;
     protected $updateRepository;
     protected $deleteRepository;
-
+    protected $searchFaild = [];
+    protected const METHOD_INDEX = "index";
     protected const METHOD_STORE = "store";
     protected const METHOD_UPDATE = "update";
     protected const METHOD_DESTROY = "destroy";
@@ -39,10 +40,13 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
      */
     public function index(Request $request) : JsonResponse
     {
+        // Request validatiuon
+        $this->validation(self::METHOD_INDEX, $request);
+
         if($this->indexRepository){
             return response()->json($this->indexRepository->index($request), 200);
         }
-        return response()->json($this->apiCrudRepository->index($request, $this->model), 200);
+        return response()->json($this->apiCrudRepository->index($request, $this->model, $this->searchFaild), 200);
     }
     
     /**
