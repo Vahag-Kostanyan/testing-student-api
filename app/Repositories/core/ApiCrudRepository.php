@@ -10,18 +10,44 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
     /**
      * @param Request $request
      * @param mixed $model
+     * @param array $searchFaild
      * @return mixed
      */
-    public function index(Request $request, mixed $model) : mixed
+    public function index(Request $request, mixed $model, array $searchFaild) : mixed
     {
+        $model = $model->query();
 
-        $include = [];
-
-        if($request->input('include')){
+        if($request->has('include')){
             $include = explode('.', $request->input('include')); 
+            $model->with($include);
         }
 
-        return ['data'=> $model->with($include)->get()];
+        if($request->has('search') && count($searchFaild)){
+            foreach($searchFaild as $item)
+            {
+                $model->orWhere($item, 'like', '%' . $request->input('search') . '%');
+            }
+        }
+        
+        $beforeLimitModel = $model;
+
+        if($request->has('sortBy')){
+            $model->orderBy($request->input('sortBy'), $request->input('sortDir') ?? 'asc');
+        }
+
+        if($request->has('limit')){
+            $model->limit($request->input('limit'));
+            if($request->has('page')){
+                $model->offset($request->input('limit') * ($request->input('page') - 1));
+            }
+        }
+        
+        return [
+            'data'=> $model->get(),
+            'totalData' => $beforeLimitModel->count(),
+            'limit' => $request->input('limit') ?? null,
+            'page' => $request->input('page') ?? null,
+        ];
     }
     
     /**
