@@ -17,6 +17,7 @@ class UserConntroller extends ApiCrudController implements ApiCrudInterface
 
     /**
      * @param UserRepositoryInterface $userRepository
+     * @param ApiCrudRepositoryInterface $apiCrudRepository
      */
     public function __construct(UserRepositoryInterface $userRepository, ApiCrudRepositoryInterface $apiCrudRepository){
         parent::__construct($apiCrudRepository);
