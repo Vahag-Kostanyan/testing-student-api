@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Repositories\api\admin\admin\user;
+use App\Http\Requests\api\admin\admin\ChangePasswordRequest;
 use Illuminate\Http\Request;
 
 
@@ -18,4 +19,10 @@ interface UserRepositoryInterface
      * @return array
      */
     public function update(Request $request, string|int $id) : array;
+
+    /**
+     * @param ChangePasswordRequest $request
+     * @return array
+     */
+    public function changePassword(ChangePasswordRequest $request) : array;
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\admin\admin\PermissionController;
+use App\Http\Controllers\api\admin\admin\ProfileConntroller;
 use App\Http\Controllers\api\admin\admin\RoleController;
 use App\Http\Controllers\api\admin\admin\RolePermissionController;
 use App\Http\Controllers\api\admin\admin\UserConntroller;
@@ -22,12 +23,14 @@ Route::get('/', [ApiController::class,'index'])->name('index');
 
 Route::middleware(['auth:sanctum', 'action.permission'])->group(function () {
 
+    Route::resource('/profile', ProfileConntroller::class)->only(['update']); 
+    Route::patch('/profile/changePassword/{id}', [ProfileConntroller::class, 'changePassword']);
+
     Route::prefix('/admin')->group(function () {
         Route::resource('/roles', RoleController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
         Route::resource('/permissions', PermissionController::class)->only(['index']); 
         Route::post('/rolePermissions', [RolePermissionController::class, 'creadAndUpdate']);
         Route::resource('/users', UserConntroller::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
-        // Route::resource('/user_profile', UserProfileConntroller::class)->only(['show', 'update']); 
     });
 
     Route::prefix('/manager')->group(function () {

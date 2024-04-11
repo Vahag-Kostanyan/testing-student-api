@@ -2,6 +2,7 @@
 
 namespace App\Repositories\api\admin\admin\user;
 
+use App\Http\Requests\api\admin\admin\ChangePasswordRequest;
 use App\Models\User;
 use App\Models\UserProfile;
 use Exception;
@@ -77,16 +78,16 @@ class UserRepository implements UserRepositoryInterface
 
             $userProfile = $user->load('userProfile')->userProfile;
             
-            $userProfileDatas = empty($request->only(['user_profile.last_name', 'user_profile.middle_name', 'user_profile.age', 'user_profile.courses']))
+            $userProfileDatas = empty($request->only(['user_profile.first_name', 'user_profile.last_name', 'user_profile.middle_name', 'user_profile.age', 'user_profile.courses']))
             ? []
-            : $request->only(['user_profile.last_name', 'user_profile.middle_name', 'user_profile.age', 'user_profile.courses'])['user_profile'];
+            : $request->only(['user_profile.first_name', 'user_profile.last_name', 'user_profile.middle_name', 'user_profile.age', 'user_profile.courses'])['user_profile'];
 
             if($userProfile && $userProfileDatas) {
                 foreach ($userProfileDatas as $key => $value) {
                     if (array_key_exists($key, $userProfile->getAttributes())) {
                         $userProfile->{$key} = $value; // Update the attribute with the new value
                     }
-                }            
+            }
             }
 
             $userProfile->save();
@@ -102,5 +103,28 @@ class UserRepository implements UserRepositoryInterface
         }
 
         return ['message' => 'User updated successfuly', 'data' => $user->load('userProfile')];
+    }
+
+
+    /**
+     * @param ChangePasswordRequest $request
+     * @return array
+     */
+    public function changePassword(ChangePasswordRequest $request) : array
+    {
+        $user = auth()->user();
+
+        if (!Hash::check($request->input('password'), $user->password)) {
+            throw new HttpResponseException(response()->json([
+                'message' => 'Validation failed',
+                'status' => false,
+                'errors' => ['Wrong password'],
+            ], 422));
+        }
+
+        $user->password = Hash::make($request->input('newPassword'));
+        $user->save();
+
+        return ['message' => 'Password changed successfully'];
     }
 }
