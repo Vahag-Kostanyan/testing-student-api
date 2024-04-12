@@ -17,6 +17,10 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
     {
         $model = $model->query();
 
+        if($request->has('role_id')){
+            $model->where('role_id', $request->input('role_id'));
+        }
+
         if($request->has('include')){
             $include = explode('.', $request->input('include')); 
             $model->with($include);
@@ -57,13 +61,18 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
      */
     public function show(Request $request, int|string $id, mixed $model) : mixed
     {
-        $include = [];
+        $model = $model->query();
 
         if($request->input('include')){
             $include = explode('.', $request->input('include')); 
+            $model->with($include);
         }
 
-        return ['data'=> $model->with($include)->find($id)];
+        if($request->has('role_id')){
+            $model->where('role_id', $request->input('role_id'));
+        }
+
+        return ['data'=> $model->where('id', $id)->first()];
     }
 
     /**
