@@ -20,7 +20,9 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
     protected $updateRepository;
     protected $deleteRepository;
     protected $searchFaild = [];
+    protected $role_id;
     protected const METHOD_INDEX = "index";
+    protected const METHOD_SHOW = "show";
     protected const METHOD_STORE = "store";
     protected const METHOD_UPDATE = "update";
     protected const METHOD_DESTROY = "destroy";
@@ -55,6 +57,9 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
      */
     public function show(Request $request, int|string $id) : JsonResponse
     {
+        // Request validatiuon
+        $this->validation(self::METHOD_SHOW, $request, $id);
+
         if($this->showRepository){
             return response()->json($this->showRepository->show($request, $id), 200);
         }
