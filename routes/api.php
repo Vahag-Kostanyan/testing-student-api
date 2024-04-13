@@ -6,6 +6,7 @@ use App\Http\Controllers\api\admin\admin\RoleController;
 use App\Http\Controllers\api\admin\admin\RolePermissionController;
 use App\Http\Controllers\api\admin\admin\UserConntroller;
 use App\Http\Controllers\api\admin\manager\StudentsController;
+use App\Http\Controllers\api\admin\manager\SubjectsController;
 use App\Http\Controllers\api\ApiController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,7 @@ Route::middleware(['auth:sanctum', 'action.permission'])->group(function () {
 
     Route::prefix('/manager')->group(function () {
         Route::resource('/students', StudentsController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
+        Route::resource('/subjects', SubjectsController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
     });
 
     Route::prefix('/teacher')->group(function () {

@@ -31,7 +31,7 @@ trait StudentsValidationTrate
     protected function update_validation_rules() : array
     {
         return [
-            'username' => ['sometimes', 'string', 'unique:users,email'],
+            'username' => ['sometimes', 'string'],
             'email' => ['sometimes', 'string', 'unique:users,email'],
             'password' => ['sometimes', 'string'],
             'role_id' => [new UnknownProperties()],
