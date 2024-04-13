@@ -42,7 +42,7 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
             }
         }
 
-        $beforeLimitModel = $model;
+        $coutn = $model->count();
 
         if ($request->has('sortBy')) {
             $model->orderBy($request->input('sortBy'), $request->input('sortDir') ?? 'asc');
@@ -57,7 +57,7 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
 
         return [
             'data' => $model->get(),
-            'totalData' => $beforeLimitModel->count(),
+            'totalData' => $coutn,
             'limit' => $request->input('limit') ?? null,
             'page' => $request->input('page') ?? null,
         ];
