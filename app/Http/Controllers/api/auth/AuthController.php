@@ -39,17 +39,11 @@ class AuthController extends Controller
      */
     public function getMe(Request $request): Response
     {
-        return response()->json([
-            'user' => auth()->user()->load('userProfile')
-        ], 200);
-    }
+        $user = auth()->user()->load('userProfile')->toArray();
+        $user['permissions'] = getUserPermissions();
 
-    /**
-     * @param Request $request
-     * @return Response
-     */
-    public function getUserPermissions(Request $request): Response
-    {
-        return response()->json(getUserPermissions(), 200);
+        return response()->json([
+            'user' => $user
+        ], 200);
     }
 }

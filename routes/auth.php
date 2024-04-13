@@ -9,4 +9,3 @@ Route::post('/login', [AuthController::class, 'login'])
         ->name('login');
 
 Route::get('/getMe', [AuthController::class, 'getMe'])->middleware('auth:sanctum');
-Route::get('/user/permissions', [AuthController::class, 'getUserPermissions'])->middleware('auth:sanctum');

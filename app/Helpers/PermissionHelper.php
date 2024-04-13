@@ -46,13 +46,16 @@ function convertRoute(string $route): string
         $routeArray = explode('/', ltrim($route, '/'));
         $route = '';
         foreach ($routeArray as $item) {
-            if (is_numeric($item)) {
-                if (request()->method() == 'GET') {
-                    $route .= '/' . ':id';
-                }
-            } else {
+            if (!is_numeric($item)) {
                 $route .= '/' . $item;
             }
+            // if (is_numeric($item)) {
+            //     if (request()->method() == 'GET') {
+            //         $route .= '/' . ':id';
+            //     }
+            // } else {
+            //     $route .= '/' . $item;
+            // }
         }
     }
 
