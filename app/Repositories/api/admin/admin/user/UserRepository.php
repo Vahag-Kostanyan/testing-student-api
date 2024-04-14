@@ -28,6 +28,7 @@ class UserRepository implements UserRepositoryInterface
                 'username' => $request->input('username'),
                 'email' => $request->input('email'),
                 'role_id' => $request->input('role_id'),
+                'group_id' => $request->input('role_id'),
                 'password' => Hash::make($request->input('password')),
             ]);
 
@@ -69,7 +70,7 @@ class UserRepository implements UserRepositoryInterface
             $user = User::find($id);
 
             if($user) {
-                foreach ($request->only(['username', 'email', 'password', 'role_id']) as $key => $value) {
+                foreach ($request->only(['username', 'email', 'password', 'role_id', 'group_id']) as $key => $value) {
                     if (array_key_exists($key, $user->getAttributes())) {
                         $user->{$key} = $value; // Update the attribute with the new value
                     }
