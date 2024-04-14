@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Group extends Model
@@ -22,6 +23,7 @@ class Group extends Model
         'parent_id',
         'user_id',
         'group_type_id',
+        'name',
         'description',
         'created_at',
         'updated_at'
@@ -38,14 +40,24 @@ class Group extends Model
     /**
      * @return HasOne
      */
-    public function user() : HasOne{
+    public function user() : HasOne
+    {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
     
     /**
      * @return HasOne
      */
-    public function groupType() : HasOne{
+    public function groupType() : HasOne
+    {
         return $this->hasOne(GroupType::class, 'id', 'group_type_id');
+    }
+
+    /**
+     * @return hasMany
+     */
+    public function groupSubjects() : HasMany
+    {
+        return $this->hasMany(GroupSubject::class, 'group_id', 'id');
     }
 }

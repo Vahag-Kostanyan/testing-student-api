@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('group', function (Blueprint $table) {
             $table->id();
-            $table->integer('parent_id');
+            $table->integer('parent_id')->nullable(true);
             $table->foreignId('user_id')->nullable(false);
             $table->foreignId('group_type_id')->nullable(false);
-            $table->string('description');
+            $table->string('name')->unique()->nullable(false);
+            $table->string('description')->nullable(true);
             $table->timestamps();
         });
     }
@@ -26,6 +27,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('group', function (Blueprint $table) {
+            $table->dropForeign('user_id');
+            $table->dropForeign('group_type_id');
+        });
         Schema::dropIfExists('group');
     }
 };

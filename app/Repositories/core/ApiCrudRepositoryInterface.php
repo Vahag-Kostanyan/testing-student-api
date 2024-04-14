@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 interface ApiCrudRepositoryInterface 
 {
-        /**
+    /**
      * @param Request $request
      * @param mixed $model
      * @param array $searchFaild
