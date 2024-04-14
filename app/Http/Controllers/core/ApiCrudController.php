@@ -18,7 +18,7 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
     protected $showRepository;
     protected $storeRepository;
     protected $updateRepository;
-    protected $deleteRepository;
+    protected $destroyRepository;
     protected $searchFaild = [];
     protected $role_id;
     protected const METHOD_INDEX = "index";
@@ -107,8 +107,8 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
         // Request validatiuon
         $this->validation(self::METHOD_DESTROY, $request, $id);
 
-        if($this->deleteRepository){
-            return response()->json($this->deleteRepository->destroy($request, $id), 200);
+        if($this->destroyRepository){
+            return response()->json($this->destroyRepository->destroy($request, $id), 200);
         }
         return response()->json($this->apiCrudRepository->destroy($request, $id, $this->model), 200);
     }

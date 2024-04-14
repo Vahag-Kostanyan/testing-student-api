@@ -5,9 +5,10 @@ use App\Http\Controllers\api\admin\admin\ProfileConntroller;
 use App\Http\Controllers\api\admin\admin\RoleController;
 use App\Http\Controllers\api\admin\admin\RolePermissionController;
 use App\Http\Controllers\api\admin\admin\UserConntroller;
-use App\Http\Controllers\api\admin\manager\StudentsController;
-use App\Http\Controllers\api\admin\manager\SubjectsController;
-use App\Http\Controllers\api\admin\manager\TeachersController;
+use App\Http\Controllers\api\admin\manager\GroupController;
+use App\Http\Controllers\api\admin\manager\StudentController;
+use App\Http\Controllers\api\admin\manager\SubjectController;
+use App\Http\Controllers\api\admin\manager\TeacherController;
 use App\Http\Controllers\api\ApiController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,9 +38,10 @@ Route::middleware(['auth:sanctum', 'action.permission'])->group(function () {
     });
 
     Route::prefix('/manager')->group(function () {
-        Route::resource('/students', StudentsController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
-        Route::resource('/subjects', SubjectsController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
-        Route::resource('/teachers', TeachersController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
+        Route::resource('/students', StudentController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
+        Route::resource('/subjects', SubjectController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
+        Route::resource('/teachers', TeacherController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
+        Route::resource('/groups', GroupController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
     });
 
     Route::prefix('/teacher')->group(function () {

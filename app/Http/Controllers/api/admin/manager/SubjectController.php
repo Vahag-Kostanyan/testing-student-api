@@ -6,7 +6,7 @@ use App\Http\Controllers\core\ApiCrudInterface;
 use App\Http\Requests\api\ValidationTrate\admin\manager\SubjectsValidationTrate;
 use App\Models\Subject;
 
-class SubjectsController extends ApiCrudController implements ApiCrudInterface
+class SubjectController extends ApiCrudController implements ApiCrudInterface
 {
     use SubjectsValidationTrate;
     protected $modelClass = Subject::class;
