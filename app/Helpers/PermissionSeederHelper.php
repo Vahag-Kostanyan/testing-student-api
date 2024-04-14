@@ -186,7 +186,6 @@ function getSubPermissions(): array
     $admin_role_create = Permission::where('page', '/admin/roles')->where('method', 'create')->first();
     $profile_role_update = Permission::where('page', '/profile')->where('method', 'update')->first();
     $group_role_read = Permission::where('page', '/manager/groups')->where('method', 'read')->first();
-    $student_role_update = Permission::where('page', '/manager/students')->where('method', 'update')->first();
 
     return [
         [
@@ -202,11 +201,6 @@ function getSubPermissions(): array
         [
             "permission_id" => $profile_role_update->id,
             "page" => '/profile/changePassword',
-            "method" => "update"
-        ],
-        [
-            "permission_id" => $student_role_update->id,
-            "page" => '/manager/students/changePassword',
             "method" => "update"
         ],
         [
