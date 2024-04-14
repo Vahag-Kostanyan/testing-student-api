@@ -2,6 +2,8 @@
 
 namespace App\Repositories\core;
 
+use Exception;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 
 class ApiCrudRepository implements ApiCrudRepositoryInterface
@@ -15,52 +17,59 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
      */
     public function index(Request $request, mixed $model, array $searchFaild): mixed
     {
-        $model = $model->query();
+        try {
+            $model = $model->query();
 
-        if ($request->has('role_id')) {
-            $model->where('role_id', $request->input('role_id'));
-        }
+            if ($request->has('role_id')) {
+                $model->where('role_id', $request->input('role_id'));
+            }
 
-        if ($request->has('include')) {
-            $include = explode('.', $request->input('include'));
-            $model->with($include);
-        }
+            if ($request->has('include')) {
+                $include = explode('&', $request->input('include'));
+                $model->with($include);
+            }
 
-        if ($request->has('search') && count($searchFaild)) {
-            if (count($searchFaild) == 1) {
-                $model->where($searchFaild[0], 'like', '%' . $request->input('search') . '%');
-            } else {
-                $model->where(function ($query) use($searchFaild, $request) {
-                    foreach ($searchFaild as $key => $item) {
-                        if ($key == 0) {
-                            $query->where($item, 'like', '%' . $request->input('search') . '%');
-                        } else {
-                            $query->orWhere($item, 'like', '%' . $request->input('search') . '%');
+            if ($request->has('search') && count($searchFaild)) {
+                if (count($searchFaild) == 1) {
+                    $model->where($searchFaild[0], 'like', '%' . $request->input('search') . '%');
+                } else {
+                    $model->where(function ($query) use ($searchFaild, $request) {
+                        foreach ($searchFaild as $key => $item) {
+                            if ($key == 0) {
+                                $query->where($item, 'like', '%' . $request->input('search') . '%');
+                            } else {
+                                $query->orWhere($item, 'like', '%' . $request->input('search') . '%');
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
-        }
 
-        $coutn = $model->count();
+            $coutn = $model->count();
 
-        if ($request->has('sortBy')) {
-            $model->orderBy($request->input('sortBy'), $request->input('sortDir') ?? 'asc');
-        }
-
-        if ($request->has('limit')) {
-            $model->limit($request->input('limit'));
-            if ($request->has('page')) {
-                $model->offset($request->input('limit') * ($request->input('page') - 1));
+            if ($request->has('sortBy')) {
+                $model->orderBy($request->input('sortBy'), $request->input('sortDir') ?? 'asc');
             }
-        }
 
-        return [
-            'data' => $model->get(),
-            'totalData' => $coutn,
-            'limit' => $request->input('limit') ?? null,
-            'page' => $request->input('page') ?? null,
-        ];
+            if ($request->has('limit')) {
+                $model->limit($request->input('limit'));
+                if ($request->has('page')) {
+                    $model->offset($request->input('limit') * ($request->input('page') - 1));
+                }
+            }
+
+            return [
+                'data' => $model->get(),
+                'totalData' => $coutn,
+                'limit' => $request->input('limit') ?? null,
+                'page' => $request->input('page') ?? null,
+            ];
+        } catch (Exception $error) {
+            throw new HttpResponseException(response()->json([
+                'status' => false,
+                'errors' => ['Something went wrong, contact support!'],
+            ], 500));
+        }
     }
 
     /**
@@ -70,18 +79,25 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
      */
     public function show(Request $request, int|string $id, mixed $model): mixed
     {
-        $model = $model->query();
+        try {
+            $model = $model->query();
 
-        if ($request->input('include')) {
-            $include = explode('.', $request->input('include'));
-            $model->with($include);
+            if ($request->has('include')) {
+                $include = explode('&', $request->input('include'));
+                $model->with($include);
+            }
+
+            if ($request->has('role_id')) {
+                $model->where('role_id', $request->input('role_id'));
+            }
+
+            return ['data' => $model->where('id', $id)->first()];
+        } catch (Exception $error) {
+            throw new HttpResponseException(response()->json([
+                'status' => false,
+                'errors' => ['Something went wrong, contact support!'],
+            ], 500));
         }
-
-        if ($request->has('role_id')) {
-            $model->where('role_id', $request->input('role_id'));
-        }
-
-        return ['data' => $model->where('id', $id)->first()];
     }
 
     /**
@@ -91,9 +107,19 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
      */
     public function store(Request $request, mixed $model): mixed
     {
-        $model->create($request->all());
+        try {
 
-        return ['message' => 'Created successfully'];
+            $record = $model->create($request->all());
+
+            return ['message' => 'Created successfully', 'data' => $record];
+
+        } catch (Exception $error) {
+            
+            throw new HttpResponseException(response()->json([
+                'status' => false,
+                'errors' => ['Something went wrong, contact support!'],
+            ], 500));
+        }
     }
 
     /**
@@ -104,19 +130,26 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
      */
     public function update(Request $request, int|string $id, mixed $model): mixed
     {
-        $record = $model->find($id);
+        try {
+            $record = $model->find($id);
 
-        if ($record) {
-            foreach ($request->all() as $key => $value) {
-                if (array_key_exists($key, $record->getAttributes())) {
-                    $record->{$key} = $value; // Update the attribute with the new value
+            if ($record) {
+                foreach ($request->all() as $key => $value) {
+                    if (array_key_exists($key, $record->getAttributes())) {
+                        $record->{$key} = $value; // Update the attribute with the new value
+                    }
                 }
             }
+
+            $record->save();
+
+            return ['message' => 'Updated successfully', 'data' => $record];
+        } catch (Exception $error) {
+            throw new HttpResponseException(response()->json([
+                'status' => false,
+                'errors' => ['Something went wrong, contact support!'],
+            ], 500));
         }
-
-        $record->save();
-
-        return ['message' => 'Updated successfully'];
     }
 
     /**
@@ -127,8 +160,17 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
      */
     public function destroy(Request $request, int|string $id, mixed $model): mixed
     {
-        $model->find($id)->delete();
+        try {
 
-        return ['message' => 'Deleted successfully'];
+            $model->find($id)->delete();
+
+            return ['message' => 'Deleted successfully'];
+
+        } catch (Exception $error) {
+            throw new HttpResponseException(response()->json([
+                'status' => false,
+                'errors' => ['Something went wrong, contact support!'],
+            ], 500));
+        }
     }
 }
