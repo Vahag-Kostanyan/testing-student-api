@@ -39,7 +39,6 @@ Route::middleware(['auth:sanctum', 'action.permission'])->group(function () {
     });
 
     Route::prefix('/manager')->group(function () {
-        Route::post('/students/changePassword', [StudentController::class, 'changePassword']);
         Route::resource('/students', StudentController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
         Route::resource('/subjects', SubjectController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
         Route::resource('/teachers', TeacherController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
