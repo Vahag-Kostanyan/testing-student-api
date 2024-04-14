@@ -6,6 +6,7 @@ use App\Http\Controllers\api\admin\admin\RoleController;
 use App\Http\Controllers\api\admin\admin\RolePermissionController;
 use App\Http\Controllers\api\admin\admin\UserConntroller;
 use App\Http\Controllers\api\admin\manager\GroupController;
+use App\Http\Controllers\api\admin\manager\GroupTypeController;
 use App\Http\Controllers\api\admin\manager\StudentController;
 use App\Http\Controllers\api\admin\manager\SubjectController;
 use App\Http\Controllers\api\admin\manager\TeacherController;
@@ -42,6 +43,7 @@ Route::middleware(['auth:sanctum', 'action.permission'])->group(function () {
         Route::resource('/subjects', SubjectController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
         Route::resource('/teachers', TeacherController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
         Route::resource('/groups', GroupController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
+        Route::resource('/group_types', GroupTypeController::class)->only(['index']); 
     });
 
     Route::prefix('/teacher')->group(function () {
