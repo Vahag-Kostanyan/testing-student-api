@@ -15,6 +15,12 @@ trait UserValidationTrate
             'email' => ['required', 'string', 'unique:users,email'],
             'password' => ['required', 'string'],
             'role_id' => ['required', 'exists:role,id'],
+            'group_id' => ['sometimes', 'exists:group,id'],
+            'user_profile.first_name' => ['sometimes', 'string'],
+            'user_profile.last_name' => ['sometimes', 'string'],
+            'user_profile.middle_name' => ['sometimes', 'string'],
+            'user_profile.age' => ['sometimes', 'integer'],
+            'user_profile.courses' => ['sometimes', 'integer'],
         ];
     }
 
@@ -29,6 +35,7 @@ trait UserValidationTrate
             'email' => ['sometimes', 'string', 'unique:users,email'],
             'password' => ['sometimes', 'string'],
             'role_id' => ['sometimes', 'exists:role,id'],
+            'group_id' => ['sometimes', 'exists:group,id'],
             'user_profile.first_name' => ['sometimes', 'string'],
             'user_profile.last_name' => ['sometimes', 'string'],
             'user_profile.middle_name' => ['sometimes', 'string'],
