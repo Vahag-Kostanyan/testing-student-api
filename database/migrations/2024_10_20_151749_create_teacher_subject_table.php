@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('group_subject', function (Blueprint $table) {
+        Schema::create('teacher_subject', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('group_id')->nullable(false);
+            $table->foreignId('user_id')->nullable(false);
             $table->foreignId('subject_id')->nullable(false);
             $table->timestamps();
         });
@@ -24,10 +24,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('group_subject', function (Blueprint $table) {
-            $table->dropForeign('group_id');
+        Schema::table('teacher_subject', function (Blueprint $table) {
+            $table->dropForeign('user_id');
             $table->dropForeign('subject_id');
         });
-        Schema::dropIfExists('group_subjects');
+        Schema::dropIfExists('teacher_subject');
     }
 };

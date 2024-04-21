@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -35,7 +36,6 @@ class User extends Authenticatable
         'username',
         'status',
         'role_id',
-        'group_id',
         'email',
         'password',
         'created_at',
@@ -79,5 +79,13 @@ class User extends Authenticatable
     public function userProfile() : HasOne 
     {
         return $this->hasOne(UserProfile::class,'user_id','id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function teacherSubjects() : HasMany 
+    {
+        return $this->hasMany(TeacherSubject::class,'user_id','id');
     }
 }

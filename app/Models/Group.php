@@ -40,7 +40,7 @@ class Group extends Model
     /**
      * @return HasOne
      */
-    public function user() : HasOne
+    public function techer() : HasOne
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
@@ -54,10 +54,18 @@ class Group extends Model
     }
 
     /**
-     * @return hasMany
+     * @return HasOne
      */
-    public function groupSubjects() : HasMany
+    public function groupUser() : HasMany
     {
-        return $this->hasMany(GroupSubject::class, 'group_id', 'id');
+        return $this->hasMany(GroupUser::class, 'group_id', 'id');
+    }
+    
+    /**
+     * @return HasOne
+     */
+    public function groupTeacherSubject() : HasMany
+    {
+        return $this->hasMany(GroupTeacherSubject::class, 'group_id', 'id');
     }
 }
