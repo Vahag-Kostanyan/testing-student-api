@@ -3,7 +3,6 @@
 namespace App\Repositories\core;
 
 use Exception;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 
 class ApiCrudRepository implements ApiCrudRepositoryInterface
@@ -65,10 +64,7 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
                 'page' => $request->input('page') ?? null,
             ];
         } catch (Exception $error) {
-            throw new HttpResponseException(response()->json([
-                'status' => false,
-                'errors' => ['Something went wrong, contact support!'],
-            ], 500));
+            serverException();
         }
     }
 
@@ -93,10 +89,7 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
 
             return ['data' => $model->where('id', $id)->first()];
         } catch (Exception $error) {
-            throw new HttpResponseException(response()->json([
-                'status' => false,
-                'errors' => ['Something went wrong, contact support!'],
-            ], 500));
+            serverException();
         }
     }
 
@@ -114,11 +107,7 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
             return ['message' => 'Created successfully', 'data' => $record];
 
         } catch (Exception $error) {
-            
-            throw new HttpResponseException(response()->json([
-                'status' => false,
-                'errors' => ['Something went wrong, contact support!'],
-            ], 500));
+            serverException();
         }
     }
 
@@ -145,10 +134,7 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
 
             return ['message' => 'Updated successfully', 'data' => $record];
         } catch (Exception $error) {
-            throw new HttpResponseException(response()->json([
-                'status' => false,
-                'errors' => ['Something went wrong, contact support!'],
-            ], 500));
+            serverException();
         }
     }
 
@@ -167,10 +153,7 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
             return ['message' => 'Deleted successfully'];
 
         } catch (Exception $error) {
-            throw new HttpResponseException(response()->json([
-                'status' => false,
-                'errors' => ['Something went wrong, contact support!'],
-            ], 500));
+            serverException();
         }
     }
 }

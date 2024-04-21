@@ -14,7 +14,6 @@ trait StudentsValidationTrate
         return [
             'username' => ['required', 'string'],
             'email' => ['required', 'string', 'unique:users,email'],
-            'group_id' => ['sometimes', 'exists:group,id'],
             'password' => ['required', 'string'],
             'role_id' => [new UnknownProperties()],
             'user_profile.first_name' => ['sometimes', 'string'],
@@ -36,7 +35,6 @@ trait StudentsValidationTrate
             'email' => ['sometimes', 'string', 'unique:users,email'],
             'password' => ['sometimes', 'string'],
             'role_id' => [new UnknownProperties()],
-            'group_id' => ['sometimes', 'exists:group,id'],
             'user_profile.first_name' => ['sometimes', 'string'],
             'user_profile.last_name' => ['sometimes', 'string'],
             'user_profile.middle_name' => ['sometimes', 'string'],

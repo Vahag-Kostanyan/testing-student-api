@@ -29,7 +29,9 @@
         },
         "files": [
             "app/Helpers/PermissionHelper.php",
-            "app/Helpers/PermissionSeederHelper.php"
+            "app/Helpers/PermissionSeederHelper.php",
+            "app/Helpers/UserHelper.php",
+            "app/Helpers/ResponseException.php"
         ]
     },
     "autoload-dev": {

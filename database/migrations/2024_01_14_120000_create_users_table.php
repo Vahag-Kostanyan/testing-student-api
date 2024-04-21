@@ -20,7 +20,6 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->foreignId('role_id');
-            $table->foreignId('group_id')->nullable(true);
             $table->rememberToken();
             $table->timestamps();
         });
@@ -33,7 +32,6 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropForeign('role_id');
-            $table->dropForeign('group_id');
         });
         Schema::dropIfExists('users');
     }
