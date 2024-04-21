@@ -19,7 +19,6 @@ trait ProfileValidationTrate
             'user_profile.middle_name' => ['sometimes', 'string'],
             'user_profile.age' => ['sometimes', 'integer'],
             'user_profile.courses' => [new UnknownProperties()], 
-            'group_id' => [new UnknownProperties()],
             'email' => [new UnknownProperties()], 
             'password' => [new UnknownProperties()], 
             'role_id' => [new UnknownProperties()], 

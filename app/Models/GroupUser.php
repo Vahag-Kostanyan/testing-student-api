@@ -6,13 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class GroupSubject extends Model
+class GroupUser extends Model
 {
     use HasFactory;
-
-    public const DEFINER = "get_group_subject";
-
-    public $table = "group_subject";
+    public $table = "group_user";
 
     /**
      * The attributes that are mass assignable.
@@ -20,27 +17,17 @@ class GroupSubject extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
         'group_id',
-        'subject_id',
         'created_at',
         'updated_at'
     ];
 
-
     /**
      * @return HasOne
      */
-    public function group() : HasOne
+    public function users() : HasOne
     {
-        return $this->hasOne(Group::class, 'id', 'group_id');
-    }
-
-
-    /**
-     * @return HasOne
-     */
-    public function subject() : HasOne
-    {
-        return $this->hasOne(Subject::class, 'id', 'subject_id');
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 }

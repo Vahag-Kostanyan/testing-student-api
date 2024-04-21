@@ -5,7 +5,7 @@ use App\Http\Controllers\core\ApiCrudController;
 use App\Http\Controllers\core\ApiCrudInterface;
 use App\Http\Requests\api\ValidationTrate\admin\manager\TeachersValidationTrate;
 use App\Models\User;
-use App\Repositories\api\admin\admin\user\UserRepositoryInterface;
+use App\Repositories\api\admin\manager\teacher\TeacherRepositoryInterface;
 use App\Repositories\core\ApiCrudRepositoryInterface;
 
 class TeacherController extends ApiCrudController implements ApiCrudInterface
@@ -16,13 +16,13 @@ class TeacherController extends ApiCrudController implements ApiCrudInterface
     protected $role_id = 4;
     
     /**
-     * @param UserRepositoryInterface $userRepository
+     * @param TeacherRepositoryInterface $teacherRepository
      * @param ApiCrudRepositoryInterface $apiCrudRepository
      */
-    public function __construct(UserRepositoryInterface $userRepository, ApiCrudRepositoryInterface $apiCrudRepository)
+    public function __construct(TeacherRepositoryInterface $teacherRepository, ApiCrudRepositoryInterface $apiCrudRepository)
     {
         parent::__construct($apiCrudRepository);
-        $this->storeRepository = $userRepository;
-        $this->updateRepository = $userRepository;
+        $this->storeRepository = $teacherRepository;
+        $this->updateRepository = $teacherRepository;
     }
 }

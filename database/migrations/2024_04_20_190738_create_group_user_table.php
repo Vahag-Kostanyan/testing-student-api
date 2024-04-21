@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sub_permission', function (Blueprint $table) {
+        Schema::create('group_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('permission_id')->nullable(false);
-            $table->string('page')->nullable(false);
-            $table->string('method')->nullable(false);
+            $table->foreignId('user_id');
+            $table->foreignId('group_id');
             $table->timestamps();
         });
     }
@@ -25,9 +24,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('sub_permission', function (Blueprint $table) {
-            $table->dropForeign('permission_id');
+        Schema::table('group_user', function (Blueprint $table) {
+            $table->dropForeign('user_id');
+            $table->dropForeign('group_id');
         });
-        Schema::dropIfExists('sub_permission');
+        Schema::dropIfExists('group_user');
     }
 };
