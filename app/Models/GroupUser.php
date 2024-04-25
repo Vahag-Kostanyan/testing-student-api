@@ -26,7 +26,7 @@ class GroupUser extends Model
     /**
      * @return HasOne
      */
-    public function users() : HasOne
+    public function user() : HasOne
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }

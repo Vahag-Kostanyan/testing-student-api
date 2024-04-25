@@ -13,6 +13,7 @@ class TeacherController extends ApiCrudController implements ApiCrudInterface
     use TeachersValidationTrate;
     protected $modelClass = User::class;
     protected $searchFaild = ['id', 'username', 'email'];
+    protected $allowedIncludes = ['userProfile', 'teacherSubjects'];
     protected $role_id = 4;
     
     /**

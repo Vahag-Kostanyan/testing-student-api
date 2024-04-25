@@ -16,7 +16,7 @@ trait GroupValidationTrate
     protected function store_validation_rules(): array
     {
         return [
-            'parent_id' => ['sometimes', 'exists:group'],
+            'parent_id' => ['sometimes', 'exists:group,id'],
             'user_id' => ['required', 'exists:users,id'],
             'group_type_id' => ['required', 'exists:group_type,id'],
             'name' => ['required', 'string', 'unique:group'],

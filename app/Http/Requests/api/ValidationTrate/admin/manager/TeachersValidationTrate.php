@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\api\ValidationTrate\admin\manager;
 use App\Rules\UnknownProperties;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\Request;
 
 trait TeachersValidationTrate
 {
@@ -26,6 +28,16 @@ trait TeachersValidationTrate
     }
 
     /**
+     * @param Request $request
+     * @return void
+     * @throws HttpResponseException
+     */
+    protected function store_after_validation(Request $request): void
+    {
+        $this->after_validate($request);
+    }
+    
+    /**
      * @return array
      * @inheritDoc
      */
@@ -43,5 +55,29 @@ trait TeachersValidationTrate
             'user_profile.age' => ['sometimes', 'integer'],
             'user_profile.courses' => [new UnknownProperties()],
         ];        
+    }
+
+    /**
+     * @param Request $request
+     * @param int|null $id
+     * @return void
+     * @throws HttpResponseException
+     */
+    protected function update_after_validation(Request $request, int|null $id): void
+    {
+        $this->after_validate($request);
+    }
+
+
+    /**
+     * @param Request $request
+     * @return void
+     * @throws HttpResponseException
+     */
+    private function after_validate(Request $request): void
+    {
+        if($request->has('subject_ids')){
+            $request->merge(['subject_ids' => array_unique($request->input('subject_ids'))]);
+        }   
     }
 }
