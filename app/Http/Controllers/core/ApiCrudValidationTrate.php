@@ -21,7 +21,7 @@ trait ApiCrudValidationTrate
                 $rules = $this->index_validation_rules();
                 break;
             case self::METHOD_SHOW:
-                $this->show_after_validation($request, $id);
+                $this->show_before_validation($request, $id);
                 $rules = $this->show_validation_rules();
                 break;
             case self::METHOD_STORE:
@@ -42,11 +42,7 @@ trait ApiCrudValidationTrate
 
         $validateor = Validator::make($request->all(), $rules);
         if ($validateor->fails()) {
-            throw new HttpResponseException(response()->json([
-                'message' => 'Validation failed',
-                'status' => false,
-                'errors' => $validateor->errors(),
-            ], 422));
+            validationException($validateor->errors() ?? []);
         }
 
         switch ($action) {
@@ -100,12 +96,17 @@ trait ApiCrudValidationTrate
             }
         }
 
+        if ($request->has('include')) {
+            $includes = explode('&', $request->input('include'));
+            foreach($includes as $include){
+                if(!in_array($include, $this->allowedIncludes)){
+                    $errorArray[] = "This relations $include is invalide";
+                }
+            }
+        }
+
         if(!empty($errorArray)){
-            throw new HttpResponseException(response()->json([
-                'message' => 'Validation failed',
-                'status' => false,
-                'errors' => $errorArray,
-            ], 422));  
+            validationException($errorArray);
         }
     }
 
@@ -139,6 +140,19 @@ trait ApiCrudValidationTrate
      */
     protected function show_before_validation(Request $request, int|null $id): void 
     {
+        $errorArray = [];
+        if ($request->has('include')) {
+            $includes = explode('&', $request->input('include'));
+            foreach($includes as $include){
+                if(!in_array($include, $this->allowedIncludes)){
+                    $errorArray[] = "This relations $include is invalide";
+                }
+            }
+        }
+
+        if(!empty($errorArray)){
+            validationException($errorArray);
+        }
     }
 
     /**
@@ -208,11 +222,7 @@ trait ApiCrudValidationTrate
         }
 
         if(!$record){
-            throw new HttpResponseException(response()->json([
-                'message' => 'Validation failed',
-                'status' => false,
-                'errors' => ['Invalid record id'],
-            ], 422));
+            validationException(['Invalid record id']);
         }
     }
 

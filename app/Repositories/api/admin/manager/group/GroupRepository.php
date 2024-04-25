@@ -24,7 +24,12 @@ class GroupRepository implements GroupRepositoryInterface
         try {
             $group = Group::find($id);
 
-            $groupUsers = $group->load('groupUser')->groupUser;
+            $groupChilds = Group::where('parent_id', $group->id)->get();
+            foreach($groupChilds as $groupChild){
+                $groupChild->delete();
+            }
+
+            $groupUsers = $group->load('groupUsers')->groupUser;
             foreach($groupUsers as $groupUser){
                 $groupUser->delete();
             }
@@ -52,7 +57,7 @@ class GroupRepository implements GroupRepositoryInterface
     {
         try {
             $group = Group::find($id);
-            $groupUsers = $group->load('groupUser')->groupUser;
+            $groupUsers = $group->load('groupUsers')->groupUser;
 
             $userIds = $request->input('user_ids');
 

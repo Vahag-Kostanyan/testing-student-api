@@ -14,6 +14,7 @@ class UserConntroller extends ApiCrudController implements ApiCrudInterface
     use UserValidationTrate;
     protected $modelClass = User::class;
     protected $searchFaild = ['id', 'username', 'email'];
+    protected $allowedIncludes = ['role', 'role.rolePermissions', 'role.rolePermissions.permission', 'userProfile', 'teacherSubjects'];
 
     /**
      * @param UserRepositoryInterface $userRepository

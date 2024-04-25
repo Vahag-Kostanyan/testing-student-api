@@ -88,4 +88,21 @@ class User extends Authenticatable
     {
         return $this->hasMany(TeacherSubject::class,'user_id','id');
     }
+
+    /**
+     * @return bool
+     */
+    public function isTeacher() : bool
+    {
+        return $this->role_id == Role::where('name', 'teacher')->first()->id;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSuperAdmin() : bool
+    {
+        return $this->role_id == Role::where('name', 'superAdmin')->first()->id;
+    }
+
 }

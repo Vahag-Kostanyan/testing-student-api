@@ -13,6 +13,7 @@ class StudentController extends ApiCrudController implements ApiCrudInterface
     use StudentsValidationTrate;
     protected $modelClass = User::class;
     protected $searchFaild = ['id', 'username', 'email'];
+    protected $allowedIncludes = ['userProfile'];
     protected $role_id = 5;
     
     /**

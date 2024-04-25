@@ -56,7 +56,7 @@ class Group extends Model
     /**
      * @return HasOne
      */
-    public function groupUser() : HasMany
+    public function groupUsers() : HasMany
     {
         return $this->hasMany(GroupUser::class, 'group_id', 'id');
     }
