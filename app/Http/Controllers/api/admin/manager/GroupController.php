@@ -15,6 +15,8 @@ class GroupController extends ApiCrudController implements ApiCrudInterface
 {
     use GroupValidationTrate;
     protected $modelClass = Group::class;
+    protected $searchFaild = ['id', 'name', 'description'];
+    protected $allowedIncludes = ['parent', 'techer', 'groupType', 'groupUsers', 'groupTeacherSubject'];
 
     /**
      * @param GroupRepositoryInterface $groupRepository

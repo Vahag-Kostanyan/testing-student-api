@@ -72,11 +72,7 @@ class UserRepository implements UserRepositoryInterface
             $user = auth()->user();
 
             if (!Hash::check($request->input('password'), $user->password)) {
-                throw new HttpResponseException(response()->json([
-                    'message' => 'Validation failed',
-                    'status' => false,
-                    'errors' => ['Wrong password'],
-                ], 422));
+                validationException(['Wrong password']);
             }
     
             $user->password = Hash::make($request->input('newPassword'));

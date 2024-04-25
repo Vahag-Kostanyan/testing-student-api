@@ -39,6 +39,16 @@ class GroupTeacherAndSubjectsRequest extends FormRequest
      */
     public function after_validation(int $id)
     {
+        if($this->has('teacherAndSubject_ids')){
+            $uniqueArray = array_map('json_encode', array_unique(array_map('json_encode', $this->input('teacherAndSubject_ids'))));
+
+            $uniqueArray = array_map('json_decode', $uniqueArray);
+      
+            $generatedUniqueArray = array_map('json_decode', $uniqueArray, array_fill(0, count($uniqueArray), true));
+
+            $this->merge(['teacherAndSubject_ids' => $generatedUniqueArray]);
+        }  
+
         $studentRoleId = Role::where('name', 'teacher')->first()->id;
 
         if(!Group::find($id)){

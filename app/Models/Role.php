@@ -32,7 +32,7 @@ class Role extends Model
     /**
      * @return HasMany
      */
-    public function rolePermission() : HasMany
+    public function rolePermissions() : HasMany
     {
         return $this->hasMany(RolePermission::class, 'role_id', 'id');
     }

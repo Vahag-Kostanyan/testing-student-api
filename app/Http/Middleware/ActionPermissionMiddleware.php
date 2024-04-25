@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -23,9 +22,6 @@ class ActionPermissionMiddleware
 
         if(hasPermission($role->id, $route)) return $next($request);
 
-        throw new HttpResponseException(response()->json([
-            'status' => false,
-            'errors' => ['Permission dinide!']
-        ], 403));
+        permissionException();
     }
 }

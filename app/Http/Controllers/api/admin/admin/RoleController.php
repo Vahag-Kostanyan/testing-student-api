@@ -11,5 +11,6 @@ class RoleController extends ApiCrudController implements ApiCrudInterface
 {
     use RoleValidationTrate;
     protected $modelClass = Role::class;
+    protected $allowedIncludes = ['rolePermissions', 'rolePermissions.permission'];
     protected $searchFaild = ['id', 'name'];
 }

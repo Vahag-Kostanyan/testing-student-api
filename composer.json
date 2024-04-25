@@ -31,7 +31,7 @@
             "app/Helpers/PermissionHelper.php",
             "app/Helpers/PermissionSeederHelper.php",
             "app/Helpers/UserHelper.php",
-            "app/Helpers/ResponseException.php"
+            "app/Helpers/ResponseExceptionHelper.php"
         ]
     },
     "autoload-dev": {

@@ -12,7 +12,7 @@ use App\Http\Controllers\api\admin\manager\SubjectController;
 use App\Http\Controllers\api\admin\manager\TeacherController;
 use App\Http\Controllers\api\ApiController;
 use Illuminate\Support\Facades\Route;
-
+use \App\Http\Controllers\api\admin\teacher\GroupController as TeacherGroupController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -49,6 +49,7 @@ Route::middleware(['auth:sanctum', 'action.permission'])->group(function () {
     });
 
     Route::prefix('/teacher')->group(function () {
+        Route::resource('/groups', TeacherGroupController::class)->only(['index', 'show']); 
     });
     
 });

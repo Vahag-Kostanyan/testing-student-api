@@ -38,7 +38,7 @@ class TeacherRepository implements TeacherRepositoryInterface
             serverException();
         }
 
-        return ['message' => 'User created successfuly', 'data' => $user->load('userProfile')];
+        return ['message' => 'User created successfuly', 'data' => $user->load(['userProfile', 'teacherSubjects'])];
     }
 
 
