@@ -18,7 +18,6 @@ trait TeachersValidationTrate
             'email' => ['required', 'string', 'unique:users,email'],
             'password' => ['required', 'string'],
             'role_id' => [new UnknownProperties()],
-            'subject_ids.*' => ['sometimes', 'exists:subject,id'],
             'user_profile.first_name' => ['sometimes', 'string'],
             'user_profile.last_name' => ['sometimes', 'string'],
             'user_profile.middle_name' => ['sometimes', 'string'],
@@ -34,6 +33,7 @@ trait TeachersValidationTrate
      */
     protected function store_after_validation(Request $request): void
     {
+        parent::store_after_validation($request);
         $this->after_validate($request);
     }
     
@@ -48,7 +48,6 @@ trait TeachersValidationTrate
             'email' => ['sometimes', 'string', 'unique:users,email'],
             'password' => ['sometimes', 'string'],
             'role_id' => [new UnknownProperties()],
-            'subject_ids.*' => ['sometimes', 'exists:subject,id'],
             'user_profile.first_name' => ['sometimes', 'string'],
             'user_profile.last_name' => ['sometimes', 'string'],
             'user_profile.middle_name' => ['sometimes', 'string'],
@@ -65,6 +64,7 @@ trait TeachersValidationTrate
      */
     protected function update_after_validation(Request $request, int|null $id): void
     {
+        parent::update_after_validation($request, $id);
         $this->after_validate($request);
     }
 
