@@ -42,6 +42,7 @@ Route::middleware(['auth:sanctum', 'action.permission'])->group(function () {
         Route::resource('/students', StudentController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
         Route::resource('/subjects', SubjectController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
         Route::resource('/teachers', TeacherController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
+        Route::put('/teachers/subjects/{id}', [TeacherController::class, 'updateTeacherSubjects']); 
         Route::resource('/group_types', GroupTypeController::class)->only(['index']);
         Route::resource('/groups', GroupController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
         Route::put('/group/students/{id}', [GroupController::class, 'updateGroupStudents']); 

@@ -187,6 +187,7 @@ function getSubPermissions(): array
     $profile_role_update = Permission::where('page', '/profile')->where('method', 'update')->first();
     $group_role_read = Permission::where('page', '/manager/groups')->where('method', 'read')->first();
     $group_role_update = Permission::where('page', '/manager/groups')->where('method', 'update')->first();
+    $teacher_role_update = Permission::where('page', '/manager/teachers')->where('method', 'update')->first();
 
     return [
         [
@@ -217,6 +218,11 @@ function getSubPermissions(): array
         [
             "permission_id" => $group_role_update->id,
             "page" => '/manager/group/teacher_and_subject',
+            "method" => "update"
+        ],
+        [
+            "permission_id" => $teacher_role_update->id,
+            "page" => '/manager/teachers/subjects',
             "method" => "update"
         ]
     ];

@@ -1,21 +1,14 @@
 <?php
 
 namespace App\Repositories\api\admin\manager\teacher;
-use Illuminate\Http\Request;
-
+use App\Http\Requests\api\admin\manager\TeacherSubjectsRequest;
 
 interface TeacherRepositoryInterface 
 {
     /**
-     * @param Request $request
-     * @return array
-     */
-    public function store(Request $request) : array;
-
-    /**
-     * @param Request $request
+     * @param TeacherSubjectsRequest $request
      * @param string|int $id
      * @return array
      */
-    public function update(Request $request, string|int $id) : array;
+    public function updateTeacherSubjects(TeacherSubjectsRequest $request, string|int $id) : array;
 }
