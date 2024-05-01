@@ -4,14 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Answer extends Model
+class QuestionOption extends Model
 {
     use HasFactory;
 
-    public const DEFINER = "get_answer";
-    public $table = "answer";
+    public $table = 'question_option';
 
     /**
      * The attributes that are mass assignable.
@@ -20,19 +18,8 @@ class Answer extends Model
      */
     protected $fillable = [
         'question_id',
-        'is_right',
         'title',
         'image',
         'created_at',
         'updated_at'
-    ];
-
-
-    /**
-     * @return HasOne
-     */
-    public function question() : HasOne
-    {
-        return $this->hasOne(Question::class, 'id', 'question_id');
-    }
-}
+    ];}

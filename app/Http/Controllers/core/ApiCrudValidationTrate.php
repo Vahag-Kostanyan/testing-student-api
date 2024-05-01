@@ -12,40 +12,60 @@ trait ApiCrudValidationTrate
     /**
      * @param string $method
      * @param Request $request
+     * @param int|null $id
+     * @return void
+     * @exception HttpResponseException
      */
-    protected function validation(string $action, Request $request, int|null $id = null)
+    protected function validation(string $method, Request $request, int|null $id = null): void
     {
-        switch ($action) {
-            case self::METHOD_INDEX:
-                $this->index_before_validation($request);
-                $rules = $this->index_validation_rules();
-                break;
-            case self::METHOD_SHOW:
-                $this->show_before_validation($request, $id);
-                $rules = $this->show_validation_rules();
-                break;
-            case self::METHOD_STORE:
-                $this->store_before_validation($request);
-                $rules = $this->store_validation_rules();
-                break;
-            case self::METHOD_UPDATE:
-                $this->update_before_validation($request, $id);
-                $rules = $this->update_validation_rules();
-                break;
-            case self::METHOD_DESTROY:
-                $this->destroy_before_validation($request, $id);
-                $rules = $this->destroy_validation_rules();
-                break;
-            default:
-                $rules = [];
-        }
+        $rules = $this->call_before_validations_and_validations_rules($method, $request, $id);
 
         $validateor = Validator::make($request->all(), $rules);
         if ($validateor->fails()) {
             validationException($validateor->errors() ?? []);
         }
 
-        switch ($action) {
+        $this->call_after_validations($method, $request, $id);
+    }
+
+    /**
+     * @param string $method
+     * @param Request $request
+     * @param int|null $id
+     * @return array
+     */
+    private function call_before_validations_and_validations_rules(string $method, Request $request, int|null $id = null): array
+    {
+        switch ($method) {
+            case self::METHOD_INDEX:
+                $this->index_before_validation($request);
+                return $this->index_validation_rules();
+            case self::METHOD_SHOW:
+                $this->show_before_validation($request, $id);
+                return $this->show_validation_rules();
+            case self::METHOD_STORE:
+                $this->store_before_validation($request);
+                return $this->store_validation_rules();
+            case self::METHOD_UPDATE:
+                $this->update_before_validation($request, $id);
+                return $this->update_validation_rules();
+            case self::METHOD_DESTROY:
+                $this->destroy_before_validation($request, $id);
+                return $this->destroy_validation_rules();
+            default:
+                return [];
+        }
+    }
+
+    /**
+     * @param string $method
+     * @param Request $request
+     * @param int|null $id
+     * @return void
+     */
+    private function call_after_validations(string $method, Request $request, int|null $id = null): void
+    {
+        switch ($method) {
             case self::METHOD_INDEX:
                 $this->index_after_validation($request);
                 break;
@@ -80,32 +100,32 @@ trait ApiCrudValidationTrate
      * @return void
      * @throws HttpResponseException
      */
-    protected function index_before_validation(Request $request): void 
+    protected function index_before_validation(Request $request): void
     {
         $errorArray = [];
 
-        if($request->has('sortDir')){
-            if(strtolower($request->input('sortDir')) != 'asc' && strtolower($request->input('sortDir')) != 'desc'){
+        if ($request->has('sortDir')) {
+            if (strtolower($request->input('sortDir')) != 'asc' && strtolower($request->input('sortDir')) != 'desc') {
                 $errorArray[] = 'Invalide sortDir!';
             }
         }
 
-        if($request->has('sortBy')){
-            if(!in_array($request->input('sortBy'), $this->searchFaild)){
+        if ($request->has('sortBy')) {
+            if (!in_array($request->input('sortBy'), $this->searchFaild)) {
                 $errorArray[] = 'Invalide sortBy!';
             }
         }
 
         if ($request->has('include')) {
             $includes = explode('&', $request->input('include'));
-            foreach($includes as $include){
-                if(!in_array($include, $this->allowedIncludes)){
+            foreach ($includes as $include) {
+                if (!in_array($include, $this->allowedIncludes)) {
                     $errorArray[] = "This relations $include is invalide";
                 }
             }
         }
 
-        if(!empty($errorArray)){
+        if (!empty($errorArray)) {
             validationException($errorArray);
         }
     }
@@ -115,10 +135,9 @@ trait ApiCrudValidationTrate
      * @return void
      * @throws HttpResponseException
      */
-    protected function index_after_validation(Request $request): void 
+    protected function index_after_validation(Request $request): void
     {
-        if($this->role_id)
-        {
+        if ($this->role_id) {
             $request->merge(['role_id' => $this->role_id]);
         }
     }
@@ -138,19 +157,19 @@ trait ApiCrudValidationTrate
      * @return void
      * @throws HttpResponseException
      */
-    protected function show_before_validation(Request $request, int|null $id): void 
+    protected function show_before_validation(Request $request, int|null $id): void
     {
         $errorArray = [];
         if ($request->has('include')) {
             $includes = explode('&', $request->input('include'));
-            foreach($includes as $include){
-                if(!in_array($include, $this->allowedIncludes)){
+            foreach ($includes as $include) {
+                if (!in_array($include, $this->allowedIncludes)) {
                     $errorArray[] = "This relations $include is invalide";
                 }
             }
         }
 
-        if(!empty($errorArray)){
+        if (!empty($errorArray)) {
             validationException($errorArray);
         }
     }
@@ -161,10 +180,9 @@ trait ApiCrudValidationTrate
      * @return void
      * @throws HttpResponseException
      */
-    protected function show_after_validation(Request $request, int|null $id): void 
+    protected function show_after_validation(Request $request, int|null $id): void
     {
-        if($this->role_id)
-        {
+        if ($this->role_id) {
             $request->merge(['role_id' => $this->role_id]);
         }
     }
@@ -182,7 +200,7 @@ trait ApiCrudValidationTrate
      * @return void
      * @throws HttpResponseException
      */
-    protected function store_before_validation(Request $request): void 
+    protected function store_before_validation(Request $request): void
     {
     }
 
@@ -191,10 +209,9 @@ trait ApiCrudValidationTrate
      * @return void
      * @throws HttpResponseException
      */
-    protected function store_after_validation(Request $request): void 
+    protected function store_after_validation(Request $request): void
     {
-        if($this->role_id)
-        {
+        if ($this->role_id) {
             $request->merge(['role_id' => $this->role_id]);
         }
     }
@@ -213,15 +230,15 @@ trait ApiCrudValidationTrate
      * @return void
      * @throws HttpResponseException
      */
-    protected function update_before_validation(Request $request, int|null $id): void 
+    protected function update_before_validation(Request $request, int|null $id): void
     {
-        if($this->role_id){
+        if ($this->role_id) {
             $record = $this->model->where('id', $id)->where('role_id', $this->role_id)->first();
-        }else{
+        } else {
             $record = $this->model->find($id);
         }
 
-        if(!$record){
+        if (!$record) {
             validationException(['Invalid record id']);
         }
     }
@@ -232,10 +249,9 @@ trait ApiCrudValidationTrate
      * @return void
      * @throws HttpResponseException
      */
-    protected function update_after_validation(Request $request, int|null $id): void 
+    protected function update_after_validation(Request $request, int|null $id): void
     {
-        if($this->role_id)
-        {
+        if ($this->role_id) {
             $request->merge(['role_id' => $this->role_id]);
         }
     }
@@ -256,18 +272,14 @@ trait ApiCrudValidationTrate
      */
     protected function destroy_before_validation(Request $request, int|null $id): void
     {
-        if($this->role_id){
+        if ($this->role_id) {
             $record = $this->model->where('id', $id)->where('role_id', $this->role_id)->first();
-        }else{
+        } else {
             $record = $this->model->find($id);
         }
-        
-        if(!$record){
-            throw new HttpResponseException(response()->json([
-                'message' => 'Validation failed',
-                'status' => false,
-                'errors' => ['Invalid record id'],
-            ], 422));
+
+        if (!$record) {
+            validationException(['Invalid record id']);
         }
     }
 
@@ -277,7 +289,7 @@ trait ApiCrudValidationTrate
      * @return void
      * @throws HttpResponseException
      */
-    protected function destroy_after_validation(Request $request, int|null $id): void 
+    protected function destroy_after_validation(Request $request, int|null $id): void
     {
     }
 }

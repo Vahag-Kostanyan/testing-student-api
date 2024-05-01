@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\api\ValidationTrate\admin\admin;
 
+use Illuminate\Validation\Rule;
+
 trait UserValidationTrate
 {
     /**
@@ -15,10 +17,10 @@ trait UserValidationTrate
             'email' => ['required', 'string', 'unique:users,email'],
             'password' => ['required', 'string'],
             'role_id' => ['required', 'exists:role,id'],
-            'user_profile.first_name' => ['sometimes', 'string'],
-            'user_profile.last_name' => ['sometimes', 'string'],
-            'user_profile.middle_name' => ['sometimes', 'string'],
-            'user_profile.age' => ['sometimes', 'integer'],
+            'user_profile.first_name' => ['sometimes', 'nullable'],
+            'user_profile.last_name' => ['sometimes', 'nullable'],
+            'user_profile.middle_name' => ['sometimes', 'nullable'],
+            'user_profile.age' => ['sometimes', 'nullable'],
             'user_profile.courses' => ['sometimes', 'integer'],
         ];
     }
@@ -30,15 +32,15 @@ trait UserValidationTrate
     protected function update_validation_rules() : array
     {
         return [
-            'username' => ['sometimes', 'string', 'unique:users,email'],
+            'username' => ['sometimes', 'string', 'unique:users,email', Rule::unique('users')->ignore(2)],
             'email' => ['sometimes', 'string', 'unique:users,email'],
             'password' => ['sometimes', 'string'],
             'role_id' => ['sometimes', 'exists:role,id'],
-            'user_profile.first_name' => ['sometimes', 'string'],
-            'user_profile.last_name' => ['sometimes', 'string'],
-            'user_profile.middle_name' => ['sometimes', 'string'],
-            'user_profile.age' => ['sometimes', 'integer'],
-            'user_profile.courses' => ['sometimes', 'integer'],
+            'user_profile.first_name' => ['sometimes', 'nullable'],
+            'user_profile.last_name' => ['sometimes', 'nullable'],
+            'user_profile.middle_name' => ['sometimes', 'nullable'],
+            'user_profile.age' => ['sometimes', 'nullable'],
+            'user_profile.courses' => ['sometimes', 'nullable'],
         ];        
     }
 }
