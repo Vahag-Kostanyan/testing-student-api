@@ -6,14 +6,16 @@ use App\Models\Role;
 use App\Models\User;
 use \Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 trait GroupValidationTrate
 {
     /**
+     * @param Request $request
      * @return array
      * @inheritDoc
      */
-    protected function store_validation_rules(): array
+    protected function store_validation_rules(Request $request): array
     {
         return [
             'parent_id' => ['sometimes', 'exists:group,id'],
@@ -36,16 +38,17 @@ trait GroupValidationTrate
 
 
     /**
+     * @param int|null $id
+     * @param Request $request
      * @return array
-     * @inheritDoc
      */
-    protected function update_validation_rules(): array
+    protected function update_validation_rules(Request $request, int|null $id): array
     {
         return [
             'parent_id' => ['sometimes', 'exists:group'],
             'user_id' => ['sometimes', 'exists:users,id'],
             'group_type_id' => ['sometimes', 'exists:group_type,id'],
-            'name' => ['sometimes', 'string', 'unique:group'],
+            'name' => ['sometimes', 'string', Rule::unique('group', 'name')->ignore($id)],
             'description' => ['sometimes', 'string'],
         ];
     }

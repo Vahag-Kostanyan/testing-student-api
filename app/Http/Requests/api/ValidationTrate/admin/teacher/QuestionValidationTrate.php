@@ -11,9 +11,11 @@ trait QuestionValidationTrate
 {
 
     /**
+     * @param Request $request
      * @return array
+     * @inheritDoc
      */
-    protected function store_validation_rules(): array
+    protected function store_validation_rules(Request $request): array
     {
         return [
             'question_type_id' => ['required', 'exists:question_type,id'],
@@ -63,9 +65,11 @@ trait QuestionValidationTrate
 
 
     /**
+     * @param int|null $id
+     * @param Request $request
      * @return array
      */
-    protected function update_validation_rules(): array
+    protected function update_validation_rules(Request $request, int|null $id): array
     {
         return [
             'question_type_id' => ['sometimes', 'required', 'exists:question_type,id'],

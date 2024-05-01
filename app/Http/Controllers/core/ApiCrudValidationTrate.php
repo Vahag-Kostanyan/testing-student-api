@@ -39,19 +39,19 @@ trait ApiCrudValidationTrate
         switch ($method) {
             case self::METHOD_INDEX:
                 $this->index_before_validation($request);
-                return $this->index_validation_rules();
+                return $this->index_validation_rules($request);
             case self::METHOD_SHOW:
                 $this->show_before_validation($request, $id);
-                return $this->show_validation_rules();
+                return $this->show_validation_rules($request, $id);
             case self::METHOD_STORE:
                 $this->store_before_validation($request);
-                return $this->store_validation_rules();
+                return $this->store_validation_rules($request);
             case self::METHOD_UPDATE:
                 $this->update_before_validation($request, $id);
-                return $this->update_validation_rules();
+                return $this->update_validation_rules($request, $id);
             case self::METHOD_DESTROY:
                 $this->destroy_before_validation($request, $id);
-                return $this->destroy_validation_rules();
+                return $this->destroy_validation_rules($request, $id);
             default:
                 return [];
         }
@@ -85,9 +85,10 @@ trait ApiCrudValidationTrate
     }
 
     /**
+     * @param Request $request
      * @return array
      */
-    protected function index_validation_rules(): array
+    protected function index_validation_rules(Request $request): array
     {
         return [
             'page' => ['sometimes', 'required', 'integer'],
@@ -144,9 +145,11 @@ trait ApiCrudValidationTrate
 
 
     /**
+     * @param Request $request
+     * @param int|null $id
      * @return array
      */
-    protected function show_validation_rules(): array
+    protected function show_validation_rules(Request $request, int|null $id): array
     {
         return [];
     }
@@ -188,9 +191,10 @@ trait ApiCrudValidationTrate
     }
 
     /**
+     * @param Request $request
      * @return array
      */
-    protected function store_validation_rules(): array
+    protected function store_validation_rules(Request $request): array
     {
         return [];
     }
@@ -217,9 +221,11 @@ trait ApiCrudValidationTrate
     }
 
     /**
+     * @param int|null $id
+     * @param Request $request
      * @return array
      */
-    protected function update_validation_rules(): array
+    protected function update_validation_rules(Request $request, int|null $id): array
     {
         return [];
     }
@@ -257,9 +263,11 @@ trait ApiCrudValidationTrate
     }
 
     /**
+     * @param int|null $id
+     * @param Request $request
      * @return array
      */
-    protected function destroy_validation_rules(): array
+    protected function destroy_validation_rules(Request $request, int|string $id): array
     {
         return [];
     }
