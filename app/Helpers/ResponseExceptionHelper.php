@@ -1,14 +1,15 @@
 <?php
 
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\MessageBag;
 
 /**
- * @param array|null $errors
+ * @param MessageBag|array|null $errors
  * @param string|null $message
  * @return void
  * @exception HttpResponseException
  */
-function validationException(array|null $errors = null, string|null $message = null) : void
+function validationException(MessageBag|array|null $errors = null, string|null $message = null) : void
 {
     throw new HttpResponseException(response()->json([
         'message' => $message ?? 'Validation failed',

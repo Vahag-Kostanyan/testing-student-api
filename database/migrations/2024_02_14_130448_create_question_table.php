@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('question', function (Blueprint $table) {
+        Schema::create('questions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('question_type_id')->nullable(false);
             $table->foreignId('user_id')->nullable(false);
             $table->string('point')->nullable(false);
+            $table->string('image')->nullable(true);
             $table->string('title')->nullable(false);
             $table->timestamps();
         });
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('question');
+        Schema::dropIfExists('questions');
     }
 };

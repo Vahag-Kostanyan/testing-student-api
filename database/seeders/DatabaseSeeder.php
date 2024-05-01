@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             SuperAdminUserSeeder::class,
             UserSeeder::class,
             GroupSeeder::class,
+            QuestionSeeder::class,
         ]);
     }
 }

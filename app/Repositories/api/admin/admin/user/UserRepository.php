@@ -4,7 +4,6 @@ namespace App\Repositories\api\admin\admin\user;
 
 use App\Http\Requests\api\admin\admin\ChangePasswordRequest;
 use Exception;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
