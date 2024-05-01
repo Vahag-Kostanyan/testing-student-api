@@ -10,6 +10,10 @@ use App\Http\Controllers\api\admin\manager\GroupTypeController;
 use App\Http\Controllers\api\admin\manager\StudentController;
 use App\Http\Controllers\api\admin\manager\SubjectController;
 use App\Http\Controllers\api\admin\manager\TeacherController;
+use App\Http\Controllers\api\admin\teacher\AnswerController;
+use App\Http\Controllers\api\admin\teacher\QuestionController;
+use App\Http\Controllers\api\admin\teacher\QuestionOptionController;
+use App\Http\Controllers\api\admin\teacher\QuestionTypeController;
 use App\Http\Controllers\api\ApiController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\api\admin\teacher\GroupController as TeacherGroupController;
@@ -51,6 +55,8 @@ Route::middleware(['auth:sanctum', 'action.permission'])->group(function () {
 
     Route::prefix('/teacher')->group(function () {
         Route::resource('/groups', TeacherGroupController::class)->only(['index', 'show']); 
+        Route::resource('/questions', QuestionController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+        Route::resource('/questions_type', QuestionTypeController::class)->only(['index']);
     });
     
 });
