@@ -4,14 +4,16 @@ namespace App\Http\Requests\api\ValidationTrate\admin\manager;
 use App\Rules\UnknownProperties;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 trait TeachersValidationTrate
 {
     /**
+     * @param Request $request
      * @return array
      * @inheritDoc
      */
-    protected function store_validation_rules(): array
+    protected function store_validation_rules(Request $request): array
     {
         return [
             'username' => ['required', 'string'],
@@ -38,14 +40,15 @@ trait TeachersValidationTrate
     }
     
     /**
+     * @param int|null $id
+     * @param Request $request
      * @return array
-     * @inheritDoc
      */
-    protected function update_validation_rules() : array
+    protected function update_validation_rules(Request $request, int|null $id): array
     {
         return [
             'username' => ['sometimes', 'string'],
-            'email' => ['sometimes', 'string', 'unique:users,email'],
+            'email' => ['sometimes', 'string', Rule::unique('users', 'email')->ignore($id)],
             'password' => ['sometimes', 'string'],
             'role_id' => [new UnknownProperties()],
             'user_profile.first_name' => ['sometimes', 'string'],
