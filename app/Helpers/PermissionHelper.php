@@ -68,7 +68,7 @@ function convertRoute(string $route): string
  */
 function getUserPermissions() : array
 {
-    $rolePermissions = auth()->user()->load('role.rolePermissions')->role->rolePermission;
+    $rolePermissions = auth()->user()->load('role.rolePermissions')->role->rolePermissions;
 
     $permissions_ids = [];
 
