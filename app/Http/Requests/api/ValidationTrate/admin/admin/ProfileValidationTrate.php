@@ -3,17 +3,20 @@
 namespace App\Http\Requests\api\ValidationTrate\admin\admin;
 
 use App\Rules\UnknownProperties;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 trait ProfileValidationTrate
 {
     /**
+     * @param int|null $id
+     * @param Request $request
      * @return array
-     * @inheritDoc
      */
-    protected function update_validation_rules() : array
+    protected function update_validation_rules(Request $request, int|null $id): array
     {
         return [
-            'username' => ['sometimes', 'string', 'unique:users,email'],
+            'username' => ['sometimes', 'string', Rule::unique('users', 'email')->ignore($id)],
             'user_profile.first_name' => ['sometimes', 'string'],
             'user_profile.last_name' => ['sometimes', 'string'],
             'user_profile.middle_name' => ['sometimes', 'string'],
