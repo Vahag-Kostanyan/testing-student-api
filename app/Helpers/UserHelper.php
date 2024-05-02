@@ -1,7 +1,9 @@
 <?php
+use App\Mail\SendUserEmail;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Support\Facades\Hash;
+use PharIo\Manifest\Email;
 
 /**
  * @param array $data
@@ -25,6 +27,9 @@ function CreateUserWithProfile(array $data): User
         'courses' => $data['user_profile']['courses'] ?? null,
     ]);
 
+    $domain = $data['role_id'] == 5 ? 'testing-student-admin.local' : 'testing-student-admin.local';
+    Mail::to($data['email'])->send(new SendUserEmail($data['email'], $data['password'], $domain));
+    
     return $user;
 }
 
