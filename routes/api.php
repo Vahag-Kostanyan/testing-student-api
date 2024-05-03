@@ -17,6 +17,8 @@ use App\Http\Controllers\api\admin\teacher\QuestionTypeController;
 use App\Http\Controllers\api\ApiController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\api\admin\teacher\GroupController as TeacherGroupController;
+use App\Http\Controllers\api\admin\teacher\TestTypeController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -57,6 +59,7 @@ Route::middleware(['auth:sanctum', 'action.permission'])->group(function () {
         Route::resource('/groups', TeacherGroupController::class)->only(['index', 'show']); 
         Route::resource('/questions', QuestionController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
         Route::resource('/questions_type', QuestionTypeController::class)->only(['index']);
+        Route::resource('/test_type', TestTypeController::class)->only(['index']);
     });
     
 });
