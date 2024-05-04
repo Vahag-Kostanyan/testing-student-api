@@ -8,5 +8,5 @@ use App\Models\QuestionType;
 class QuestionTypeController extends ApiCrudController implements ApiCrudInterface
 {
     protected $modelClass = QuestionType::class;
-    protected $searchFaild = ['id', 'name', 'description'];
+    protected $searchFaild = ['id', 'name', 'description', 'created_at', 'updated_at'];
 }
