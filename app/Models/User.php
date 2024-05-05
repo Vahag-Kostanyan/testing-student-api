@@ -82,6 +82,15 @@ class User extends Authenticatable
     }
 
     /**
+     * @return HasOne
+     */
+    public function userTests() : HasMany 
+    {
+        return $this->hasMany(UserTest::class,'user_id','id');
+    }
+
+
+    /**
      * @return HasMany
      */
     public function teacherSubjects() : HasMany 
