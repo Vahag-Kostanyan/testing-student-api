@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -24,7 +25,7 @@ use Laravel\Sanctum\HasApiTokens;
  */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     public const DEFINER = "get_user";
     /**
@@ -34,7 +35,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username',
-        'status',
         'role_id',
         'email',
         'password',
@@ -82,6 +82,15 @@ class User extends Authenticatable
     }
 
     /**
+     * @return HasOne
+     */
+    public function userTests() : HasMany 
+    {
+        return $this->hasMany(UserTest::class,'user_id','id');
+    }
+
+
+    /**
      * @return HasMany
      */
     public function teacherSubjects() : HasMany 
@@ -100,9 +109,16 @@ class User extends Authenticatable
     /**
      * @return bool
      */
+    public function isStudent() : bool
+    {
+        return $this->role_id == Role::where('name', 'student')->first()->id;
+    }
+
+    /**
+     * @return bool
+     */
     public function isSuperAdmin() : bool
     {
         return $this->role_id == Role::where('name', 'superAdmin')->first()->id;
     }
-
 }

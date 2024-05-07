@@ -10,5 +10,5 @@ class SubjectController extends ApiCrudController implements ApiCrudInterface
 {
     use SubjectsValidationTrate;
     protected $modelClass = Subject::class;
-    protected $searchFaild = ['id', 'name'];
+    protected $searchFaild = ['id', 'name', 'created_at', 'updated_at'];
 }
