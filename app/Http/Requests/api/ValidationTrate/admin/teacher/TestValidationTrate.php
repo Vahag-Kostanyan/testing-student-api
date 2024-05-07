@@ -44,7 +44,7 @@ trait TestValidationTrate
     {
         parent::update_before_validation($request, $id);
         
-        $this->after_validation($id);
+        $this->before_validation($id, 'update');
     }
     
     /**
@@ -72,19 +72,21 @@ trait TestValidationTrate
     {
         parent::destroy_before_validation($request, $id);
         
-        $this->after_validation($id);
+        $this->before_validation($id, 'delete');
     }
 
     /**
      * @return void
      * @param int|null $id
+     * @param string $method
      * @param Request $request
      * @throws HttpResponseException
      */
-    private function after_validation(int|null $id) : void
+    private function before_validation(int|null $id, string $method) : void
     {
-        if(!auth()->user()->isSuperAdmin() && !Test::where('id', $id)->where('created_by', auth()->user()->id)->first()){
-            validationException(['This user cannot update this test']);
+        if(!auth()->user()->isSuperAdmin() && !Test::where('id', $id)->where('user_id', auth()->user()->id)->first()){
+
+            validationException(["This user cannot $method this test"]);
         }
     }
 }

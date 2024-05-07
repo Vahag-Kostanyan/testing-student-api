@@ -109,6 +109,14 @@ class User extends Authenticatable
     /**
      * @return bool
      */
+    public function isStudent() : bool
+    {
+        return $this->role_id == Role::where('name', 'student')->first()->id;
+    }
+
+    /**
+     * @return bool
+     */
     public function isSuperAdmin() : bool
     {
         return $this->role_id == Role::where('name', 'superAdmin')->first()->id;
