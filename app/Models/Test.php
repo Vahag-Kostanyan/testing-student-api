@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Test extends Model
@@ -44,6 +45,13 @@ class Test extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
+    /**
+     * @return HasOne
+     */
+    public function testUsesr() : HasMany
+    {
+        return $this->hasMany(UserTest::class, 'test_id', 'id');
+    }
 
     /**
      * @return HasOne

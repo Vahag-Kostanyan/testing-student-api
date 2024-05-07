@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('test_id')->nullable(false);
             $table->foreignId('user_id')->nullable(false);
-            $table->string('status')->nullable(false);
+            $table->enum('status', ['panding', 'checked', 'success', 'failed'])->default('panding')->nullable(false);
             $table->string('mark')->nullable(true);
             $table->dateTime('test_data_from')->nullable(false);
             $table->dateTime('test_data_to')->nullable(false);
