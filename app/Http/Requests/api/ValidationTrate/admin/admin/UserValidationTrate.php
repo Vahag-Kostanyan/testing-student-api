@@ -35,10 +35,10 @@ trait UserValidationTrate
     protected function update_validation_rules(Request $request, int|null $id): array
     {
         return [
-            'username' => ['sometimes', 'string'],
-            'email' => ['sometimes', 'string', Rule::unique('users', 'email')->ignore($id)],
-            'password' => ['sometimes', 'string'],
-            'role_id' => ['sometimes', 'exists:role,id'],
+            'username' => ['sometimes', 'required', 'string'],
+            'email' => ['sometimes', 'required', 'string', Rule::unique('users', 'email')->ignore($id)],
+            'password' => ['sometimes', 'required', 'string'],
+            'role_id' => ['sometimes', 'required', 'exists:role,id'],
             'user_profile.first_name' => ['sometimes', 'nullable'],
             'user_profile.last_name' => ['sometimes', 'nullable'],
             'user_profile.middle_name' => ['sometimes', 'nullable'],
