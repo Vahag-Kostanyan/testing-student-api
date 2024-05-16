@@ -28,8 +28,7 @@ class TeacherSubjectsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject_ids' => ['required'],
-            'subject_ids.*' => ['required', 'exists:subject,id'],
+            'subject_ids.*' => ['sometimes', 'required', 'nullable', 'exists:subject,id'],
         ];
     }
 
