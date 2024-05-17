@@ -22,8 +22,8 @@ trait StudentsValidationTrate
             'user_profile.first_name' => ['sometimes', 'string'],
             'user_profile.last_name' => ['sometimes', 'string'],
             'user_profile.middle_name' => ['sometimes', 'string'],
-            'user_profile.age' => ['sometimes', 'integer'],
-            'user_profile.courses' => ['sometimes', 'integer'],
+            'user_profile.age' => ['sometimes', 'integer', 'nullable'],
+            'user_profile.courses' => ['sometimes', 'integer', 'nullable'],
         ];
     }
 
@@ -42,8 +42,8 @@ trait StudentsValidationTrate
             'user_profile.first_name' => ['sometimes', 'string'],
             'user_profile.last_name' => ['sometimes', 'string'],
             'user_profile.middle_name' => ['sometimes', 'string'],
-            'user_profile.age' => ['sometimes', 'integer'],
-            'user_profile.courses' => ['sometimes', 'integer'],
+            'user_profile.age' => ['sometimes', 'integer', 'nullable'],
+            'user_profile.courses' => ['sometimes', 'integer', 'nullable'],
         ];        
     }
 }
