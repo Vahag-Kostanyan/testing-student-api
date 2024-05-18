@@ -27,7 +27,7 @@ function CreateUserWithProfile(array $data): User
         'courses' => $data['user_profile']['courses'] ?? null,
     ]);
 
-    $domain = $data['role_id'] == 5 ? 'testing-student-admin.local' : 'testing-student-admin.local';
+    $domain = $data['role_id'] == 5 ? 'testing-students-admin.local' : 'testing-students-admin.local';
     Mail::to($data['email'])->send(new SendUserEmail($data['email'], $data['password'], $domain));
     
     return $user;
