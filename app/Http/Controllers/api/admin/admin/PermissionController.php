@@ -9,4 +9,5 @@ use App\Models\Permission;
 class PermissionController extends ApiCrudController implements ApiCrudInterface
 {
     protected $modelClass = Permission::class;
+    protected $allowedIncludes = ['rolePermission', 'rolePermission.permission'];
 }

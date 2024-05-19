@@ -49,7 +49,7 @@ trait TeachersValidationTrate
         return [
             'username' => ['sometimes', 'string'],
             'email' => ['sometimes', 'string', Rule::unique('users', 'email')->ignore($id)],
-            'password' => ['sometimes', 'string'],
+            'password' => ['sometimes', 'required', 'string'],
             'role_id' => [new UnknownProperties()],
             'user_profile.first_name' => ['sometimes', 'string'],
             'user_profile.last_name' => ['sometimes', 'string'],
