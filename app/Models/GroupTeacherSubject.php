@@ -28,9 +28,16 @@ class GroupTeacherSubject extends Model
     /**
      * @return HasOne
      */
-    public function techer() : HasOne
+    public function teacher() : HasOne
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
- 
+
+    /**
+     * @return HasOne
+     */
+    public function subject() : HasOne
+    {
+        return $this->hasOne(Subject::class, 'id', 'subject_id');
+    }
 }
