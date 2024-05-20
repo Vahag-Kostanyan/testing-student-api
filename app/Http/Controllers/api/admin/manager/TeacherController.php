@@ -4,7 +4,7 @@ namespace App\Http\Controllers\api\admin\manager;
 use App\Http\Controllers\core\ApiCrudController;
 use App\Http\Controllers\core\ApiCrudInterface;
 use App\Http\Requests\api\admin\manager\TeacherSubjectsRequest;
-use App\Http\Requests\api\ValidationTrate\admin\manager\TeachersValidationTrate;
+use App\Http\Requests\api\ValidationTrait\admin\manager\TeachersValidationTrait;
 use App\Models\User;
 use App\Repositories\api\admin\admin\user\UserRepositoryInterface;
 use App\Repositories\api\admin\manager\teacher\TeacherRepositoryInterface;
@@ -13,9 +13,9 @@ use Illuminate\Http\JsonResponse;
 
 class TeacherController extends ApiCrudController implements ApiCrudInterface
 {
-    use TeachersValidationTrate;
+    use TeachersValidationTrait;
     protected $modelClass = User::class;
-    protected $searchFaild = ['id', 'username', 'email', 'created_at', 'updated_at'];
+    protected $searchField = ['id', 'username', 'email', 'created_at', 'updated_at'];
     protected $allowedIncludes = ['userProfile', 'teacherSubjects'];
     protected $role_id = 4;
     

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\api\ValidationTrate\admin\teacher;
+namespace App\Http\Requests\api\ValidationTrait\admin\teacher;
 
 use App\Models\Question;
 use App\Rules\GreaterThanZero;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 
-trait QuestionValidationTrate
+trait QuestionValidationTrait
 {
 
     /**
@@ -21,7 +21,7 @@ trait QuestionValidationTrate
             'question_type_id' => ['required', 'exists:question_type,id'],
             'point' => ['required', 'integer', new GreaterThanZero],
             'title' => ['required', 'string'],
-            'image' => ['sometimes', 'string', 'url'],
+            'image' => ['nullable', 'string'],
             'answers.*.title' => ['sometimes', 'required', 'string'],
             'answers.*.image' => ['sometimes', 'required', 'url'],
             'answers.*.is_right' => ['sometimes', 'required', 'boolean'],

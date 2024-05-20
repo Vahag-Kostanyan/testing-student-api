@@ -11,10 +11,10 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
     /**
      * @param Request $request
      * @param mixed $model
-     * @param array $searchFaild
+     * @param array $searchField
      * @return mixed
      */
-    public function index(Request $request, mixed $model, array $searchFaild): mixed
+    public function index(Request $request, mixed $model, array $searchField): mixed
     {
         try {
             $model = $model->query();
@@ -28,12 +28,12 @@ class ApiCrudRepository implements ApiCrudRepositoryInterface
                 $model->with($include);
             }
 
-            if ($request->has('search') && count($searchFaild)) {
-                if (count($searchFaild) == 1) {
-                    $model->where($searchFaild[0], 'like', '%' . $request->input('search') . '%');
+            if ($request->has('search') && count($searchField)) {
+                if (count($searchField) == 1) {
+                    $model->where($searchField[0], 'like', '%' . $request->input('search') . '%');
                 } else {
-                    $model->where(function ($query) use ($searchFaild, $request) {
-                        foreach ($searchFaild as $key => $item) {
+                    $model->where(function ($query) use ($searchField, $request) {
+                        foreach ($searchField as $key => $item) {
                             if ($key == 0) {
                                 $query->where($item, 'like', '%' . $request->input('search') . '%');
                             } else {

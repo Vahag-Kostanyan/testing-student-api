@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\api\ValidationTrate\admin\manager;
+namespace App\Http\Requests\api\ValidationTrait\admin\manager;
 use App\Rules\UnknownProperties;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-trait SubjectsValidationTrate
+trait SubjectsValidationTrait
 {
     /**
      * @param Request $request

@@ -5,7 +5,7 @@ use App\Http\Controllers\core\ApiCrudController;
 use App\Http\Controllers\core\ApiCrudInterface;
 use App\Http\Requests\api\admin\manager\GroupStudentsRequest;
 use App\Http\Requests\api\admin\manager\GroupTeacherAndSubjectsRequest;
-use App\Http\Requests\api\ValidationTrate\admin\manager\GroupValidationTrate;
+use App\Http\Requests\api\ValidationTrait\admin\manager\GroupValidationTrait;
 use App\Models\Group;
 use App\Repositories\api\admin\manager\group\GroupRepositoryInterface;
 use App\Repositories\core\ApiCrudRepositoryInterface;
@@ -13,9 +13,9 @@ use Illuminate\Http\JsonResponse;
 
 class GroupController extends ApiCrudController implements ApiCrudInterface
 {
-    use GroupValidationTrate;
+    use GroupValidationTrait;
     protected $modelClass = Group::class;
-    protected $searchFaild = ['id', 'name', 'description', 'created_at', 'updated_at'];
+    protected $searchField = ['id', 'name', 'description', 'created_at', 'updated_at'];
     protected $allowedIncludes = ['parent', 'teacher', 'groupType', 'groupUsers', 'groupTeacherSubject', 'groupTeacherSubject.teacher', 'groupTeacherSubject.subject'];
 
     /**

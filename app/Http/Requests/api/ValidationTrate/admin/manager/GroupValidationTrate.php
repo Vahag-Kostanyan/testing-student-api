@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\api\ValidationTrate\admin\manager;
+namespace App\Http\Requests\api\ValidationTrait\admin\manager;
 
 use App\Models\Role;
 use App\Models\User;
@@ -8,7 +8,7 @@ use \Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-trait GroupValidationTrate
+trait GroupValidationTrait
 {
     /**
      * @param Request $request

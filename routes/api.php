@@ -62,6 +62,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::resource('/questions_type', QuestionTypeController::class)->only(['index']);
             Route::resource('/test_type', TestTypeController::class)->only(['index']);
             Route::resource('/tests', TestController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+            Route::put('/test/questions/{id}', [TestController::class, 'updateTestQuestions']);         
             Route::resource('/test_user', TestUserController::class)->only(['store', 'destroy']);
         });
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\api\ValidationTrate\admin\admin;
+namespace App\Http\Requests\api\ValidationTrait\admin\admin;
 
 use App\Rules\UnknownProperties;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-trait ProfileValidationTrate
+trait ProfileValidationTrait
 {
     /**
      * @param int|null $id

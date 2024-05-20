@@ -78,7 +78,7 @@ class GroupRepository implements GroupRepositoryInterface
             serverException();
         }
 
-        return ['message' => 'Updated successfuly', 'data' => $group->load('groupUser')->groupUser];
+        return ['message' => 'Updated successfully', 'data' => $group->load('groupUser')->groupUser];
     }
 
     /**
@@ -127,6 +127,6 @@ class GroupRepository implements GroupRepositoryInterface
             serverException();
         }
 
-        return ['message' => 'Updated successfuly', 'data' => $group->load('groupTeacherSubject')->groupTeacherSubject];
+        return ['message' => 'Updated successfully', 'data' => $group->load('groupTeacherSubject')->groupTeacherSubject];
     }
 }
