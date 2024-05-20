@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('question_type_id')->nullable(false);
             $table->foreignId('user_id')->nullable(false);
             $table->string('point')->nullable(false);
-            $table->string('image')->nullable(true);
+            $table->longText('image')->nullable(true);
             $table->string('title')->nullable(false);
             $table->timestamps();
         });
