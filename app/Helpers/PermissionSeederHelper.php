@@ -192,6 +192,7 @@ function getSubPermissions(): array
     $test_role_read = Permission::where('page', '/teacher/tests')->where('method', 'read')->first();
     $test_role_create = Permission::where('page', '/teacher/tests')->where('method', 'create')->first();
     $test_role_delete = Permission::where('page', '/teacher/tests')->where('method', 'delete')->first();
+    $test_role_update = Permission::where('page', '/teacher/tests')->where('method', 'update')->first();
 
     return [
         [
@@ -247,6 +248,11 @@ function getSubPermissions(): array
         [
             "permission_id" => $test_role_delete->id,
             "page" => '/teacher/test_user',
+            "method" => "delete"
+        ],
+        [
+            "permission_id" => $test_role_update->id,
+            "page" => '/teacher/test/questions',
             "method" => "delete"
         ]
     ];

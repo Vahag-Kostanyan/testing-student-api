@@ -48,7 +48,7 @@ class Test extends Model
     /**
      * @return HasOne
      */
-    public function testUsesr() : HasMany
+    public function testUsers() : HasMany
     {
         return $this->hasMany(UserTest::class, 'test_id', 'id');
     }
