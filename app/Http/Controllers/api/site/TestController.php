@@ -8,16 +8,11 @@ use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
-    protected $testRepository;
-
     /**
      * @param TestRepositoryInterface $testRepository
      * @inheritDoc
      */
-    public function __construct(TestRepositoryInterface $testRepository)
-    {
-        $this->testRepository = $testRepository;
-    }
+    public function __construct(private TestRepositoryInterface $testRepository) {}
 
     public function getTests(Request $request)
     {

@@ -12,11 +12,9 @@ class TestRepository implements TestRepositoryInterface
      */
     public function getStudentTest(Request $request): array
     {
-        $data = [];
-
-        dd(auth()->user()->load('userTests'));
-
-        return ['status' => 'successfully', 'data' => $data];
+        $data = auth()->user()->load(['userTests.test'])->userTests ?? []; 
+        
+        return ['status' => 'success', 'data' => $data];
     }
 
 }
