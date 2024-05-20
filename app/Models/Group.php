@@ -40,7 +40,7 @@ class Group extends Model
     /**
      * @return HasOne
      */
-    public function techer() : HasOne
+    public function teacher() : HasOne
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }

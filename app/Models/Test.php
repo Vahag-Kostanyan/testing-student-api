@@ -60,4 +60,12 @@ class Test extends Model
     {
         return $this->hasOne(Subject::class, 'id', 'subject_id');
     }
+
+    /**
+     * @return HasMany
+     */
+    public function testQuestions() : HasMany
+    {
+        return $this->hasMany(TestQuestion::class, 'test_id', 'id');
+    }
 }

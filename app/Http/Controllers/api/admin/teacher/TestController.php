@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\api\admin\teacher;
 use App\Http\Controllers\core\ApiCrudController;
 use App\Http\Controllers\core\ApiCrudInterface;
-use App\Http\Requests\Api\admin\teacher\TestQuestionRequest;
+use App\Http\Requests\api\admin\teacher\TestQuestionRequest;
 use App\Http\Requests\api\ValidationTrate\admin\teacher\TestValidationTrate;
 use App\Models\Test;
-use App\Repositories\Api\Admin\teacher\test\TestRepositoryInterface;
+use App\Repositories\api\admin\teacher\test\TestRepositoryInterface;
 use App\Repositories\core\ApiCrudRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 

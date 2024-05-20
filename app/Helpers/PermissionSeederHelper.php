@@ -253,7 +253,7 @@ function getSubPermissions(): array
         [
             "permission_id" => $test_role_update->id,
             "page" => '/teacher/test/questions',
-            "method" => "delete"
+            "method" => "update"
         ]
     ];
 }

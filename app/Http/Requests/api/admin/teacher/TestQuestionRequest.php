@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Http\Requests\Api\admin\teacher;
+namespace App\Http\Requests\api\admin\teacher;
+
 use App\Http\Requests\api\BaseApiRequestTrait;
+use App\Models\Question;
+use App\Models\Test;
+use App\Rules\IsArray;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TestQuestionRequest extends FormRequest 
+class TestQuestionRequest extends FormRequest
 {
     use BaseApiRequestTrait;
 
@@ -24,12 +28,29 @@ class TestQuestionRequest extends FormRequest
     public function rules(): array
     {
         return [
-           'question_ids.*' => [ 'sometimes', 'required', 'exists:question,id'],
+            'question_ids' => [new IsArray],
+            'question_ids.*' => ['sometimes', 'required', 'exists:questions,id'],
         ];
     }
 
     public function after_validation(int|string|null $id)
     {
-    }
+        if(!Test::find($id)){
+            validationException(["Invalid Test id $id"]);
+        }
 
+        $this->merge(['question_ids' => array_unique($this?->question_ids ?? [])]);
+
+        if(!auth()->user()->isSuperAdmin()){
+            if(!Test::where('user_id', auth()->user()->id)->find($id)){
+                validationException(["Teacher has no Test with id $id"]);
+            }
+
+            foreach($this->question_ids as $question_id){
+                if(!Question::where('user_id', auth()->user()->id)->where('id', $question_id)->first()){
+                    validationException(["Teacher has no questions with id $question_id"]);
+                }
+            }
+        }
+    }
 }

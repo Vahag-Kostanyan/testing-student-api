@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Repositories\Api\Admin\teacher\test;
-use App\Http\Requests\Api\admin\teacher\TestQuestionRequest;
+namespace   App\Repositories\api\admin\teacher\test;
+use App\Http\Requests\api\admin\teacher\TestQuestionRequest;
 
 interface TestRepositoryInterface
 {
