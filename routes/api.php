@@ -66,7 +66,7 @@ Route::middleware('auth:sanctum')->group(function () {
         });
 
     });
-    Route::prefix('/site')->group(function () {
+    Route::middleware('site')->prefix('/site')->group(function () {
         Route::get('/tests', [SiteTestController::class, 'getTests']);
     });
 });
