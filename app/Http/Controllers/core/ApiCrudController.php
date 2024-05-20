@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 
 abstract class ApiCrudController extends Controller implements ApiCrudInterface
 {
-    use ApiCrudValidationTrate;
+    use ApiCrudValidationTrait;
 
     protected $modelClass;
     protected $model;

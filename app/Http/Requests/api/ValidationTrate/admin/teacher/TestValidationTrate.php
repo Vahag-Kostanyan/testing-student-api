@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\api\ValidationTrate\admin\teacher;
+namespace App\Http\Requests\api\ValidationTrait\admin\teacher;
 
 use App\Models\Test;
 use Illuminate\Http\Request;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-trait TestValidationTrate
+trait TestValidationTrait
 {
 
     /**

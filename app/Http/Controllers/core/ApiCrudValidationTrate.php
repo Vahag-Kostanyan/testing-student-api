@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-trait ApiCrudValidationTrate
+trait ApiCrudValidationTrait
 {
 
     /**

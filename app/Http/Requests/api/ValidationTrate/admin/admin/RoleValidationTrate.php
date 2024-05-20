@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\api\ValidationTrate\admin\admin;
+namespace App\Http\Requests\api\ValidationTrait\admin\admin;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-trait RoleValidationTrate
+trait RoleValidationTrait
 {
     /**
      * @param Request $request

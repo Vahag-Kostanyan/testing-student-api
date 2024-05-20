@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\api\ValidationTrate\admin\manager;
+namespace App\Http\Requests\api\ValidationTrait\admin\manager;
 use App\Rules\UnknownProperties;
 use Illuminate\Http\Request;
 
-trait GroupTypeValidationTrate
+trait GroupTypeValidationTrait
 {
     /**
      * @param Request $request

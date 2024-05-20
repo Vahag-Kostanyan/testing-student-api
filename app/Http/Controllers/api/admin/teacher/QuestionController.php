@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\api\admin\teacher;
 use App\Http\Controllers\core\ApiCrudController;
 use App\Http\Controllers\core\ApiCrudInterface;
-use App\Http\Requests\api\ValidationTrate\admin\teacher\QuestionValidationTrate;
+use App\Http\Requests\api\ValidationTrait\admin\teacher\QuestionValidationTrait;
 use App\Models\Question;
 use App\Repositories\api\admin\teacher\question\QuestionRepositoryInterface;
 use App\Repositories\core\ApiCrudRepositoryInterface;
 
 class QuestionController extends ApiCrudController implements ApiCrudInterface
 {
-    use QuestionValidationTrate;
+    use QuestionValidationTrait;
     protected $modelClass = Question::class;
     protected $searchField = ['id', 'title', 'point', 'created_at', 'updated_at'];
     protected $allowedIncludes = ['questionType', 'questionOptions', 'questionAnswers'];

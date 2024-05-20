@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\api\ValidationTrate\admin\teacher;
+namespace App\Http\Requests\api\ValidationTrait\admin\teacher;
 
 use App\Models\Question;
 use App\Rules\GreaterThanZero;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 
-trait QuestionValidationTrate
+trait QuestionValidationTrait
 {
 
     /**
