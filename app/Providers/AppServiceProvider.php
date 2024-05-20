@@ -14,6 +14,8 @@ use App\Repositories\api\admin\teacher\group\TeacherGroupRepository;
 use App\Repositories\api\admin\teacher\group\TeacherGroupRepositoryInterface;
 use App\Repositories\api\admin\teacher\question\QuestionRepository;
 use App\Repositories\api\admin\teacher\question\QuestionRepositoryInterface;
+use App\Repositories\api\site\test\TestRepository as SiteTestRepository;
+use App\Repositories\api\site\test\TestRepositoryInterface as SiteTestRepositoryInterface;
 use App\Repositories\api\admin\teacher\test\TestRepository;
 use App\Repositories\api\admin\teacher\test\TestRepositoryInterface;
 use App\Repositories\core\ApiCrudRepository;
@@ -35,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(TeacherGroupRepositoryInterface::class, TeacherGroupRepository::class);
         $this->app->bind(QuestionRepositoryInterface::class, QuestionRepository::class);
         $this->app->bind(TestRepositoryInterface::class, TestRepository::class);
+        $this->app->bind(SiteTestRepositoryInterface::class, SiteTestRepository::class);
     }
 
     /**
