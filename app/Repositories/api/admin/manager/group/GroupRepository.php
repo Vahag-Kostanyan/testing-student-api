@@ -57,10 +57,9 @@ class GroupRepository implements GroupRepositoryInterface
     {
         try {
             $group = Group::find($id);
-            $groupUsers = $group->load('groupUsers')->groupUser;
+            $groupUsers = $group->load('groupUsers')->groupUser ?? [];
 
             $userIds = $request->input('user_ids');
-
             foreach ($groupUsers as $groupUser) {
                 if (!in_array($groupUser->user_id, $userIds)) {
                     $groupUser->delete();
@@ -70,11 +69,12 @@ class GroupRepository implements GroupRepositoryInterface
                 }
             }
             $newGroupUsers = [];
+            
             foreach ($userIds as $userId) {
                 $newGroupUsers[] = ['group_id' => $group->id, 'user_id' => $userId, 'created_at' => now(), 'updated_at' => now()];
             }
             GroupUser::insert($newGroupUsers);
-        } catch (Exception $error) {
+        } catch (Exception $error) {dd($error);
             serverException();
         }
 
