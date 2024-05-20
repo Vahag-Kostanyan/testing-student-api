@@ -112,7 +112,7 @@ trait ApiCrudValidationTrate
         }
 
         if ($request->has('sortBy')) {
-            if (!in_array($request->input('sortBy'), $this->searchFaild)) {
+            if (!in_array($request->input('sortBy'), $this->searchField)) {
                 $errorArray[] = 'Invalide sortBy!';
             }
         }

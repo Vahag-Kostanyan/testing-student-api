@@ -12,7 +12,7 @@ class QuestionController extends ApiCrudController implements ApiCrudInterface
 {
     use QuestionValidationTrate;
     protected $modelClass = Question::class;
-    protected $searchFaild = ['id', 'title', 'point', 'created_at', 'updated_at'];
+    protected $searchField = ['id', 'title', 'point', 'created_at', 'updated_at'];
     protected $allowedIncludes = ['questionType', 'questionOptions', 'questionAnswers'];
 
     /**

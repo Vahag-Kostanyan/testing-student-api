@@ -19,7 +19,7 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
     protected $storeRepository;
     protected $updateRepository;
     protected $destroyRepository;
-    protected $searchFaild = [];
+    protected $searchField = [];
     protected $allowedIncludes = [];
     protected $role_id;
     protected const METHOD_INDEX = "index";
@@ -49,7 +49,7 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
         if($this->indexRepository){
             return response()->json($this->indexRepository->index($request), 200);
         }
-        return response()->json($this->apiCrudRepository->index($request, $this->model, $this->searchFaild), 200);
+        return response()->json($this->apiCrudRepository->index($request, $this->model, $this->searchField), 200);
     }
     
     /**
