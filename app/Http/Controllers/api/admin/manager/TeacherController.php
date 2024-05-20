@@ -30,7 +30,6 @@ class TeacherController extends ApiCrudController implements ApiCrudInterface
         ApiCrudRepositoryInterface $apiCrudRepository
         )
     {
-        exit("222");
         parent::__construct($apiCrudRepository);
         $this->storeRepository = $userRepository;
         $this->updateRepository = $userRepository;
