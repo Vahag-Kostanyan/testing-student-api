@@ -8,5 +8,5 @@ use App\Models\TestType;
 class TestTypeController extends ApiCrudController implements ApiCrudInterface
 {
     protected $modelClass = TestType::class;
-    protected $searchFaild = ['id', 'name', 'description', 'created_at', 'updated_at'];
+    protected $searchField = ['id', 'name', 'description', 'created_at', 'updated_at'];
 }

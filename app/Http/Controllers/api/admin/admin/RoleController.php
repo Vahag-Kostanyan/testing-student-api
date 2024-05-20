@@ -4,13 +4,13 @@ namespace App\Http\Controllers\api\admin\admin;
 
 use App\Http\Controllers\core\ApiCrudController;
 use App\Http\Controllers\core\ApiCrudInterface;
-use App\Http\Requests\api\ValidationTrate\admin\admin\RoleValidationTrate;
+use App\Http\Requests\api\ValidationTrait\admin\admin\RoleValidationTrait;
 use App\Models\Role;
 
 class RoleController extends ApiCrudController implements ApiCrudInterface
 {
-    use RoleValidationTrate;
+    use RoleValidationTrait;
     protected $modelClass = Role::class;
     protected $allowedIncludes = ['rolePermissions', 'rolePermissions.permission'];
-    protected $searchFaild = ['id', 'name', 'created_at', 'updated_at'];
+    protected $searchField = ['id', 'name', 'created_at', 'updated_at'];
 }

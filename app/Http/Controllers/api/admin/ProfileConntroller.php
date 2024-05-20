@@ -5,7 +5,7 @@ namespace App\Http\Controllers\api\admin;
 use App\Http\Controllers\core\ApiCrudController;
 use App\Http\Controllers\core\ApiCrudInterface;
 use App\Http\Requests\api\admin\admin\ChangePasswordRequest;
-use App\Http\Requests\api\ValidationTrate\admin\admin\ProfileValidationTrate;
+use App\Http\Requests\api\ValidationTrait\admin\admin\ProfileValidationTrait;
 use App\Models\User;
 use App\Repositories\api\admin\admin\user\UserRepositoryInterface;
 use App\Repositories\core\ApiCrudRepositoryInterface;
@@ -13,7 +13,7 @@ use Illuminate\Http\JsonResponse;
 
 class ProfileConntroller extends ApiCrudController implements ApiCrudInterface
 {
-    use ProfileValidationTrate;
+    use ProfileValidationTrait;
     protected $modelClass = User::class;
     
     /**

@@ -89,6 +89,14 @@ class User extends Authenticatable
         return $this->hasMany(UserTest::class,'user_id','id');
     }
 
+    /**
+     * @return HasOne
+     */
+    public function userQuestions() : HasMany 
+    {
+        return $this->hasMany(Question::class,'user_id','id');
+    }
+
 
     /**
      * @return HasMany

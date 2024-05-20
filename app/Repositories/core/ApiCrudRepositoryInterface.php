@@ -9,10 +9,10 @@ interface ApiCrudRepositoryInterface
     /**
      * @param Request $request
      * @param mixed $model
-     * @param array $searchFaild
+     * @param array $searchField
      * @return mixed
      */
-    public function index(Request $request, mixed $model, array $searchFaild) : mixed;
+    public function index(Request $request, mixed $model, array $searchField) : mixed;
     
     /**
      * @param Request $request
