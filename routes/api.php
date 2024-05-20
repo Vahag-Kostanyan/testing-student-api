@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\api\admin\teacher\GroupController as TeacherGroupController;
 use App\Http\Controllers\api\admin\teacher\TestController;
 use App\Http\Controllers\api\admin\teacher\TestTypeController;
-
+use \App\Http\Controllers\api\site\TestController as SiteTestController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,41 +30,46 @@ use App\Http\Controllers\api\admin\teacher\TestTypeController;
 |
 */
 
-Route::get('/', [ApiController::class,'index'])->name('index');
+Route::get('/', [ApiController::class, 'index'])->name('index');
 
-Route::middleware(['auth:sanctum', 'action.permission'])->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
+    Route::middleware('action.permission')->group(function () {
 
-    Route::resource('/profile', ProfileConntroller::class)->only(['update']); 
-    Route::patch('/profile/changePassword/{id}', [ProfileConntroller::class, 'changePassword']);
+        Route::resource('/profile', ProfileConntroller::class)->only(['update']);
+        Route::patch('/profile/changePassword/{id}', [ProfileConntroller::class, 'changePassword']);
 
-    Route::prefix('/admin')->group(function () {
-        Route::resource('/roles', RoleController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
-        Route::resource('/permissions', PermissionController::class)->only(['index']); 
-        Route::post('/rolePermissions', [RolePermissionController::class, 'creadAndUpdate']);
-        Route::resource('/users', UserConntroller::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
+        Route::prefix('/admin')->group(function () {
+            Route::resource('/roles', RoleController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+            Route::resource('/permissions', PermissionController::class)->only(['index']);
+            Route::post('/rolePermissions', [RolePermissionController::class, 'creadAndUpdate']);
+            Route::resource('/users', UserConntroller::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+        });
+
+        Route::prefix('/manager')->group(function () {
+            Route::resource('/students', StudentController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+            Route::resource('/subjects', SubjectController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+            Route::resource('/teachers', TeacherController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+            Route::put('/teachers/subjects/{id}', [TeacherController::class, 'updateTeacherSubjects']);
+            Route::resource('/group_types', GroupTypeController::class)->only(['index']);
+            Route::resource('/groups', GroupController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+            Route::put('/group/students/{id}', [GroupController::class, 'updateGroupStudents']);
+            Route::put('/group/teacher_and_subject/{id}', [GroupController::class, 'updateGroupTeacherAndSubjects']);
+        });
+
+        Route::prefix('/teacher')->group(function () {
+            Route::resource('/groups', TeacherGroupController::class)->only(['index', 'show']);
+            Route::resource('/questions', QuestionController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+            Route::resource('/questions_type', QuestionTypeController::class)->only(['index']);
+            Route::resource('/test_type', TestTypeController::class)->only(['index']);
+            Route::resource('/tests', TestController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
+            Route::resource('/test_user', TestUserController::class)->only(['store', 'destroy']);
+        });
+
     });
-
-    Route::prefix('/manager')->group(function () {
-        Route::resource('/students', StudentController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
-        Route::resource('/subjects', SubjectController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
-        Route::resource('/teachers', TeacherController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
-        Route::put('/teachers/subjects/{id}', [TeacherController::class, 'updateTeacherSubjects']); 
-        Route::resource('/group_types', GroupTypeController::class)->only(['index']);
-        Route::resource('/groups', GroupController::class)->only(['index', 'show', 'store', 'update', 'destroy']); 
-        Route::put('/group/students/{id}', [GroupController::class, 'updateGroupStudents']); 
-        Route::put('/group/teacher_and_subject/{id}', [GroupController::class, 'updateGroupTeacherAndSubjects']); 
+    Route::prefix('/site')->group(function () {
+        Route::get('/tests', [SiteTestController::class, 'getTests']);
     });
-
-    Route::prefix('/teacher')->group(function () {
-        Route::resource('/groups', TeacherGroupController::class)->only(['index', 'show']); 
-        Route::resource('/questions', QuestionController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
-        Route::resource('/questions_type', QuestionTypeController::class)->only(['index']);
-        Route::resource('/test_type', TestTypeController::class)->only(['index']);
-        Route::resource('/tests', TestController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
-        Route::resource('/test_user', TestUserController::class)->only(['store', 'destroy']);
-    });
-    
 });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

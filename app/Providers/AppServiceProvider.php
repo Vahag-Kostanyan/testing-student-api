@@ -14,6 +14,8 @@ use App\Repositories\api\admin\teacher\group\TeacherGroupRepository;
 use App\Repositories\api\admin\teacher\group\TeacherGroupRepositoryInterface;
 use App\Repositories\api\admin\teacher\question\QuestionRepository;
 use App\Repositories\api\admin\teacher\question\QuestionRepositoryInterface;
+use App\Repositories\Api\site\test\TestRepository;
+use App\Repositories\Api\site\test\TestRepositoryInterface;
 use App\Repositories\core\ApiCrudRepository;
 use App\Repositories\core\ApiCrudRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -32,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(GroupRepositoryInterface::class, GroupRepository::class);
         $this->app->bind(TeacherGroupRepositoryInterface::class, TeacherGroupRepository::class);
         $this->app->bind(QuestionRepositoryInterface::class, QuestionRepository::class);
+        $this->app->bind(TestRepositoryInterface::class, TestRepository::class);
     }
 
     /**
