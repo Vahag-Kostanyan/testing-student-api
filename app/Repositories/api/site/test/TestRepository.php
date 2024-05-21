@@ -2,6 +2,7 @@
 
 namespace App\Repositories\api\site\test;
 
+use App\Http\Requests\api\site\TestQuestionsRequest;
 use Illuminate\Http\Request;
 
 class TestRepository implements TestRepositoryInterface
@@ -15,6 +16,16 @@ class TestRepository implements TestRepositoryInterface
         $data = auth()->user()->load(['userTests.test'])->userTests ?? []; 
         
         return ['status' => 'success', 'data' => $data];
+    }
+
+    /**
+     * @param TestQuestionsRequest $request
+     * @return array
+     */
+    public function getStudentTestQuestions(TestQuestionsRequest $request, int|string $id) : array
+    {
+        
+        return ['status' => 'success'];
     }
 
 }
