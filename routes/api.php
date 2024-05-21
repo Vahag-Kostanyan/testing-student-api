@@ -17,6 +17,7 @@ use App\Http\Controllers\api\ApiController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\api\admin\teacher\GroupController as TeacherGroupController;
 use App\Http\Controllers\api\admin\teacher\TestController;
+use App\Http\Controllers\api\admin\teacher\TestQuestionsController;
 use App\Http\Controllers\api\admin\teacher\TestTypeController;
 use \App\Http\Controllers\api\site\TestController as SiteTestController;
 /*
@@ -62,7 +63,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::resource('/questions_type', QuestionTypeController::class)->only(['index']);
             Route::resource('/test_type', TestTypeController::class)->only(['index']);
             Route::resource('/tests', TestController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
-            Route::put('/test/questions/{id}', [TestController::class, 'updateTestQuestions']);         
+            Route::resource('/test/questions', TestQuestionsController::class)->only(['index', 'show', 'store', 'update', 'destroy']);
             Route::resource('/test_user', TestUserController::class)->only(['store', 'destroy']);
         });
 
