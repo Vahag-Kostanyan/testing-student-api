@@ -251,9 +251,24 @@ function getSubPermissions(): array
             "method" => "delete"
         ],
         [
+            "permission_id" => $test_role_read->id,
+            "page" => '/teacher/test/questions',
+            "method" => "read"
+        ],
+        [
+            "permission_id" => $test_role_create->id,
+            "page" => '/teacher/test/questions',
+            "method" => "create"
+        ],
+        [
             "permission_id" => $test_role_update->id,
             "page" => '/teacher/test/questions',
             "method" => "update"
+        ],
+        [
+            "permission_id" => $test_role_delete->id,
+            "page" => '/teacher/test/questions',
+            "method" => "delete"
         ]
     ];
 }
