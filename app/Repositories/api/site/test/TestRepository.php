@@ -3,6 +3,7 @@
 namespace App\Repositories\api\site\test;
 
 use App\Http\Requests\api\site\TestQuestionsRequest;
+use App\Models\TestQuestion;
 use Illuminate\Http\Request;
 
 class TestRepository implements TestRepositoryInterface
@@ -24,8 +25,20 @@ class TestRepository implements TestRepositoryInterface
      */
     public function getStudentTestQuestions(TestQuestionsRequest $request, int|string $id) : array
     {
+        $testQuestions = TestQuestion::where('test_id', $id)
+        ->with(['question', 'question.questionType', 'question.questionOptions', 'question.questionAnswers'])
+        ->select()
+        ->get();
         
-        return ['status' => 'success'];
+        $data = [];
+
+        foreach($testQuestions as $testQuestion){
+            $testQuestion?->question?->questionAnswers = [];
+
+            $data[] = $testQuestion->question;
+        }
+
+        return ['status' => 'success', 'data' => $data];
     }
 
 }
