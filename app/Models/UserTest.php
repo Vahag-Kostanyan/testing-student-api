@@ -14,7 +14,9 @@ class UserTest extends Model
 
     public $table = "user_test";
 
-    /**
+    public const STATUS_PENDING = 'pending';
+    
+     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
