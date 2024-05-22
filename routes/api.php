@@ -20,6 +20,8 @@ use App\Http\Controllers\api\admin\teacher\TestController;
 use App\Http\Controllers\api\admin\teacher\TestQuestionsController;
 use App\Http\Controllers\api\admin\teacher\TestTypeController;
 use \App\Http\Controllers\api\site\TestController as SiteTestController;
+use App\Http\Controllers\api\site\TestQuestionAnswerController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -71,6 +73,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::middleware('site')->prefix('/site')->group(function () {
         Route::get('/tests', [SiteTestController::class, 'getTests']);
         Route::get('/test/questions/{id}', [SiteTestController::class, 'getTestQuestions']);
+        Route::resource('/test/questions/answer', TestQuestionAnswerController::class)->only(['show', 'store', 'update']);
     });
 });
 
