@@ -65,3 +65,11 @@ function UpdateUserWithProfile(array $data, int $id): User
 
     return $user;
 }
+
+/**
+ * @return User|null
+ */
+function user(): User|null
+{
+    return auth()->user();
+}

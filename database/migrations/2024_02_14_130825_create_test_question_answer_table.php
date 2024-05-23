@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('test_id')->nullable(false);
             $table->foreignId('question_id')->nullable(false);
             $table->foreignId('answer_id')->nullable(false);
-            $table->json('additional_information');
+            $table->json('additional_information')->default(null)->nullable(true);
             $table->timestamps();
         });
     }
