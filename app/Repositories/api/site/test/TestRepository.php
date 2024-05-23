@@ -27,15 +27,19 @@ class TestRepository implements TestRepositoryInterface
     {
         $testQuestions = TestQuestion::where('test_id', $id)
         ->with(['question', 'question.questionType', 'question.questionOptions', 'question.questionAnswers'])
-        ->select()
-        ->get();
+        ->get()
+        ->toArray();
         
         $data = [];
 
         foreach($testQuestions as $testQuestion){
-            $testQuestion?->question?->questionAnswers = [];
+            foreach($testQuestion['question']['question_answers'] as $key => $answer) 
+            {
+                unset($answer['is_right']);
+                $testQuestion['question']['question_answers'][$key] = $answer;
+            }
 
-            $data[] = $testQuestion->question;
+            $data[] = $testQuestion['question'];
         }
 
         return ['status' => 'success', 'data' => $data];
