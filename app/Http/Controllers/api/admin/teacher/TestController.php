@@ -11,5 +11,5 @@ class TestController extends ApiCrudController implements ApiCrudInterface
     use TestValidationTrait;
     protected $modelClass = Test::class;
     protected $searchField = ['id', 'name', 'created_at', 'updated_at'];
-    protected $allowedIncludes = ['type', 'user', 'testUsers', 'user.userProfile', 'subject'];
+    protected $allowedIncludes = ['type', 'user', 'testUsers', 'user.userProfile', 'subject', 'testQuestions.question'];
 }
