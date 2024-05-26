@@ -43,7 +43,7 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
      */
     public function index(Request $request) : JsonResponse
     {
-        // Request validatiuon
+        // Request validations
         $this->validation(self::METHOD_INDEX, $request);
 
         if($this->indexRepository){
@@ -58,7 +58,7 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
      */
     public function show(Request $request, int|string $id) : JsonResponse
     {
-        // Request validatiuon
+        // Request validations
         $this->validation(self::METHOD_SHOW, $request, $id);
 
         if($this->showRepository){
@@ -73,7 +73,7 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
      */
     public function store(Request $request) : JsonResponse
     {
-        // Request validatiuon
+        // Request validations
         $this->validation(self::METHOD_STORE, $request);
 
         if($this->storeRepository){
@@ -89,7 +89,7 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
      */
     public function update(Request $request, int|string $id) : JsonResponse
     {
-        // Request validatiuon
+        // Request validations
         $this->validation(self::METHOD_UPDATE, $request, $id);
 
         if($this->updateRepository){
@@ -105,7 +105,7 @@ abstract class ApiCrudController extends Controller implements ApiCrudInterface
      */
     public function destroy(Request $request, int|string $id) : JsonResponse
     {
-        // Request validatiuon
+        // Request validations
         $this->validation(self::METHOD_DESTROY, $request, $id);
 
         if($this->destroyRepository){
