@@ -15,6 +15,9 @@ class UserTest extends Model
     public $table = "user_test";
 
     public const STATUS_PENDING = 'pending';
+    public const STATUS_CANCEL = 'cancel';
+    public const STATUS_SUCCESS = 'success';
+    public const STATUS_FAILED = 'failed';
     
      /**
      * The attributes that are mass assignable.
