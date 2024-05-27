@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\site;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\api\site\TestQuestionsRequest;
+use App\Http\Requests\api\site\TestRequest;
 use App\Repositories\api\site\test\TestRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -22,7 +23,17 @@ class TestController extends Controller
      */
     public function getTests(Request $request) : JsonResponse
     {
-        return response()->json($this->testRepository->getStudentTest($request), 200);
+        return response()->json($this->testRepository->getStudentTests($request), 200);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getTest(TestRequest $request, int|string $id) : JsonResponse
+    {
+        $request->after_validation($id);
+        return response()->json($this->testRepository->getStudentTest($request, $id), 200);
     }
 
     /**
