@@ -75,6 +75,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/test/{id}', [SiteTestController::class, 'getTest']);
         Route::get('/test/questions/{id}', [SiteTestController::class, 'getTestQuestions']);
         Route::resource('/test/question/answer', TestQuestionAnswerController::class)->only(['index', 'show', 'store', 'update']);
+        Route::put('/submitTest/{id}', [SiteTestController::class, 'submitTest']);
     });
 });
 

@@ -53,4 +53,12 @@ class Question extends Model
     {
         return $this->hasMany(Answer::class, 'question_id', 'id');
     }
+    
+    /**
+     * @return HasOne
+     */
+    public function rightQuestionAnswer() : HasOne
+    {
+        return $this->hasOne(Answer::class, 'question_id', 'id')->where('is_right',  true);
+    }
 }
