@@ -32,13 +32,13 @@ class SubmitTest implements ShouldQueue
      */
     public function handle(): void
     {
-        try{
+        try {
             $pointSum = 0;
             $rightAnswersPointSum = 0;
             $questionCount = 0;
-    
+
             $testQuestions = $this->test->load('testQuestions.question.rightQuestionAnswer')->testQuestions;
-    
+
             foreach ($testQuestions as $testQuestion) {
                 $pointSum += $testQuestion->question->point;
                 $questionCount++;
@@ -46,17 +46,17 @@ class SubmitTest implements ShouldQueue
                     $rightAnswersPointSum += $testQuestion->question->point;
                 }
             }
-    
-            $result = $rightAnswersPointSum / $pointSum * 100;
-    
-            $userTest = UserTest::where('user_id', $this->user->id)->where('test_id', $this->test->id)->where('status', UserTest::STATUS_PENDING)->first();
-    
-            $userTest->mark = $result;
-            $userTest->status = $result >= 40 ? UserTest::STATUS_SUCCESS : $userTest->status = UserTest::STATUS_FAILED;
 
-            Mail::to($this->user->email)->send(new SendUserTestResult($this->user->username, $userTest->load('test')->test->name,  $userTest->status === UserTest::STATUS_SUCCESS ? true : false, $result));
+            $result = $rightAnswersPointSum / $pointSum * 100;
+
+            $userTest = UserTest::where('user_id', $this->user->id)->where('test_id', $this->test->id)->where('status', UserTest::STATUS_PENDING)->first();
+
+            $userTest->mark = $result;
+            $userTest->status = $result >= 40 ? UserTest::STATUS_SUCCESS : UserTest::STATUS_FAILED;
+
+            Mail::to($this->user->email)->send(new SendUserTestResult($this->user->username, $userTest->load('test')->test->name, $userTest->status === UserTest::STATUS_SUCCESS ? true : false, $result));
             $userTest->save();
-        }catch(Exception $error){
+        } catch (Exception $error) {
             serverException();
         }
     }
