@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Group;
 use App\Models\GroupTeacherSubject;
 use App\Models\GroupType;
+use App\Models\GroupUser;
 use App\Models\Role;
 use App\Models\Subject;
 use App\Models\TeacherSubject;
@@ -52,6 +53,13 @@ class LoadTestDataSeeder extends Seeder
 
             // Insert group teacher subjects data
             $group = GroupTeacherSubject::create(['user_id' => $teachers[0]['id'], 'group_id' =>  $group->id, 'subject_id' => $subject_id]);
+
+            // Insert group users data
+            foreach($students as $student){
+                GroupUser::create(['user_id' => $student->id, 'group_id' => $group->id]);
+            }
+
+
         }catch(Exception $error){
             dd($error->getMessage());
         }
