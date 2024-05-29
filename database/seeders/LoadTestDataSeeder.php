@@ -13,8 +13,11 @@ use App\Models\QuestionType;
 use App\Models\Role;
 use App\Models\Subject;
 use App\Models\TeacherSubject;
+use App\Models\Test;
+use App\Models\TestQuestion;
 use App\Models\User;
 use App\Models\UserProfile;
+use App\Models\UserTest;
 use Exception;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -66,7 +69,29 @@ class LoadTestDataSeeder extends Seeder
             // Insert questions data with answers and options
             $questions = $this->generateQuestionWithOptionsAndAnswers($teachers[0]['id']);
 
+            // Insert test data
+            $test = Test::create(['test_type_id' => 1, 'user_id' => $teachers[0]['id'], 'subject_id' => $subject_id, 'name' => 'First test']);
+            
+            // Insert test questions data
+            foreach($questions as $question)
+            {
+                TestQuestion::create(['test_id' => $test->id, 'question_id' => $question->id]);
+            }
 
+            // asigne to students
+            date_default_timezone_set('Asia/Yerevan');        
+            $timeAfterFiveDay = date('Y-m-d H:i:s', strtotime('+1 day'));
+            $now = date('Y-m-d H:i:s', strtotime('now'));
+            foreach($students as $student)
+            {
+                UserTest::create([
+                    'test_id' => $test->id,
+                    'user_id' => $student->id,
+                    'test_data_from' => $now,
+                    'test_data_to' => $timeAfterFiveDay,
+                ]);
+            }
+            
         } catch (Exception $error) {
             dd($error->getMessage());
         }
