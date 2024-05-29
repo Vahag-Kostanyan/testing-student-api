@@ -27,18 +27,7 @@ class GroupRepository implements GroupRepositoryInterface
             $groupChilds = Group::where('parent_id', $group->id)->get();
             foreach($groupChilds as $groupChild){
                 $groupChild->delete();
-            }
-
-            $groupUsers = $group->load('groupUsers')->groupUser;
-            foreach($groupUsers as $groupUser){
-                $groupUser->delete();
-            }
-
-            $groupTeacherSubjects = $group->load('groupTeacherSubject')->groupTeacherSubject;
-            foreach($groupTeacherSubjects as $groupTeacherSubject){
-                $groupTeacherSubject->delete();
-            }
-
+            }       
             $group->delete();
         } catch (Exception $error) {
             serverException();
