@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('question_option', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('question_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('question_id');
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade')->nullable(false);
             $table->string('title')->require();
             $table->string('image')->nullable(true);
             $table->timestamps();
