@@ -18,7 +18,6 @@ use App\Models\UserProfile;
 use Exception;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use PhpParser\Node\Stmt\Return_;
 
 class LoadTestDataSeeder extends Seeder
 {
@@ -84,7 +83,7 @@ class LoadTestDataSeeder extends Seeder
             [
                 'username' => 'ArmenHakobyan',
                 'email' => 'armen.hakobyan@gmail.com',
-                'password' => Hash::make('123456'),
+                'password' => '123456',
                 'user_profile' => [
                     'first_name' => 'Armen',
                     'last_name' => 'Hakobyan',
@@ -97,7 +96,7 @@ class LoadTestDataSeeder extends Seeder
             [
                 'username' => 'AniManukyan',
                 'email' => 'ani.manukyan@gmail.com',
-                'password' => Hash::make('123456'),
+                'password' => '123456',
                 'user_profile' => [
                     'first_name' => 'Ani',
                     'last_name' => 'Manukyan',
@@ -121,7 +120,7 @@ class LoadTestDataSeeder extends Seeder
             [
                 'username' => 'HarutXachatryan',
                 'email' => 'harut.xachatryan@gmail.com',
-                'password' => Hash::make('123456'),
+                'password' => '123456',
                 'user_profile' => [
                     'first_name' => 'Harut',
                     'last_name' => 'Xachatryan',
