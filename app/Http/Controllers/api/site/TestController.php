@@ -74,6 +74,8 @@ class TestController extends Controller
     public function testResult(TestResultRequest $request, int|string $id): JsonResponse
     {
         $request->after_validation($id);
-        return response()->json(['message' => 'Test result success', 'data' => UserTest::where('user_id', user()->id)->where('test_id', $id)->first()], 200);
+        $userTest = UserTest::where('user_id', user()->id)->where('test_id', $id)->first();
+        $userTest->load('test.subject');
+        return response()->json(['message' => 'Test result success', 'data' => $userTest], 200);
     }
 }
