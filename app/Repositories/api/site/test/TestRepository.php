@@ -28,7 +28,7 @@ class TestRepository implements TestRepositoryInterface
      */ 
     public function getStudentTest(TestRequest $request, int|string $id): array
     {
-        $data = UserTest::where('user_id', user()->id)->with(['test', 'test.user', 'test.subject'])->find($id);
+        $data = UserTest::where('user_id', user()->id)->with(['test', 'test.user', 'test.subject'])->where('test_id', $id)->first();
 
         return ['status' => 'success', 'data' => $data];
     }
