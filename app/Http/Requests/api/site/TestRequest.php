@@ -35,7 +35,7 @@ class TestRequest extends FormRequest
      */
     public function after_validation(int|string $id): void
     {
-        if (!$userTest = UserTest::where('test_id', $id)->where('user_id', user()->id)->first()) {
+        if (!$userTest = UserTest::where('id', $id)->where('user_id', user()->id)->first()) {
             validationException(["Invalid Test id $id"]);
         }
 
